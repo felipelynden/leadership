@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leadership Blueprint — Felipe Lynden</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<style>
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ─── TOKENS ─── */
+:root {
+  --black:     #000000;
+  --white:     #ffffff;
+  --g1:        #111111;
+  --g2:        #1a1a1a;
+  --g3:        #262626;
+  --g4:        #333333;
+  --g5:        #5c5c5c;
+  --g6:        #888888;
+  --g7:        #aaaaaa;
+  --g8:        #cccccc;
+  --gold:      #CEA54E;
+  --gold-dim:  rgba(206,165,78,0.12);
+  --gold-low:  rgba(206,165,78,0.06);
+  --purple:    #6C389F;
+  --purp-dim:  rgba(108,56,159,0.18);
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 20px;
+  --max: 1160px;
+}
+
+body {
+  font-family: 'Figtree', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ─── SCROLL PROGRESS ─── */
+#progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0%;
+  background: var(--gold);
+  z-index: 200; transition: width 0.1s linear;
+}
+
+/* ─── LAYOUT ─── */
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 48px; }
+@media(max-width:640px){ .wrap { padding: 0 24px; } }
+
+/* ─── HEADER ─── */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 56px; display: flex; align-items: center;
+  background: rgba(0,0,0,0.82);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--g3);
+}
+.header-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 48px;
+  width: 100%; display: flex; align-items: center;
+}
+.back-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 14px; font-weight: 700; letter-spacing: 0.01em;
+  color: var(--white); transition: opacity 0.18s;
+}
+.back-link:hover { opacity: 0.65; }
+.back-link svg { display: block; }
+
+/* ─── REVEAL ─── */
+.rv { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.rv.on { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.08s; } .d2 { transition-delay: 0.18s; }
+.d3 { transition-delay: 0.28s; } .d4 { transition-delay: 0.38s; }
+
+/* ─── HERO ─── */
+.hero {
+  padding: 148px 0 96px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero-glow {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 580px;
+  background: radial-gradient(ellipse 52% 58% at 50% 20%, rgba(108,56,159,0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-glow-2 {
+  position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%);
+  width: 560px; height: 280px;
+  background: radial-gradient(ellipse 55% 50% at 50% 100%, rgba(206,165,78,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-context {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 22px;
+}
+.hero-dot { color: var(--g5); }
+.hero-h1 {
+  font-size: clamp(52px, 9vw, 100px);
+  font-weight: 800; letter-spacing: -0.035em;
+  line-height: 1.02; margin-bottom: 22px;
+}
+.hero-sub {
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: var(--g7); max-width: 600px;
+  margin: 0 auto 44px; line-height: 1.65; font-weight: 400;
+}
+.hero-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border: 1px solid var(--g3);
+  border-radius: 100px; font-size: 13px; font-weight: 500;
+  color: var(--g7); background: var(--g1);
+}
+.pill .v { color: var(--gold); font-weight: 700; }
+
+/* ─── DISCLAIMER ─── */
+.disclaimer-box {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-md); padding: 18px 22px;
+}
+.disclaimer-icon { flex-shrink: 0; margin-top: 1px; color: var(--gold); }
+.dis-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 4px; }
+.dis-text { font-size: 12px; color: var(--g6); line-height: 1.65; }
+
+/* ─── TOC ─── */
+.toc-section { padding: 72px 0; border-top: 1px solid var(--g3); }
+.toc-label {
+  display: inline-flex; padding: 5px 13px;
+  border: 1px solid var(--g4); border-radius: 100px;
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--g6); margin-bottom: 36px;
+}
+.toc-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--g3);
+  border: 1px solid var(--g3); border-radius: var(--r-xl); overflow: hidden;
+}
+.toc-item {
+  background: var(--black); padding: 28px 30px;
+  display: flex; gap: 18px; align-items: flex-start;
+  transition: background 0.2s;
+}
+.toc-item:hover { background: var(--g1); }
+.toc-n { font-size: 10px; font-weight: 800; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; padding-top: 3px; min-width: 22px; }
+.toc-title { font-size: 16px; font-weight: 600; margin-bottom: 5px; }
+.toc-desc { font-size: 13px; color: var(--g6); line-height: 1.5; }
+
+/* ─── CHAPTER ─── */
+.chapter { padding: 80px 0; border-top: 1px solid var(--g3); }
+.chapter-head { margin-bottom: 48px; }
+.ch-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.ch-cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.09em; color: var(--g6); }
+.ch-badge {
+  width: 26px; height: 26px;
+  background: var(--gold); color: var(--black);
+  font-size: 11px; font-weight: 800; border-radius: 6px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.ch-badge-p { background: var(--purple); color: var(--white); }
+.ch-h2 { font-size: clamp(30px, 4.5vw, 52px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 10px; }
+.ch-sub { font-size: 14px; color: var(--g6); font-style: italic; }
+
+/* ─── CARD ─── */
+.card { background: var(--g1); border: 1px solid var(--g3); border-radius: var(--r-md); padding: 26px; }
+.card-tag {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--g6); border: 1px solid var(--g4);
+  border-radius: 100px; padding: 3px 10px; margin-bottom: 14px;
+}
+.card-h3 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+.card-p { font-size: 13px; color: var(--g6); line-height: 1.7; }
+
+/* ─── LAYOUTS ─── */
+.two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.asym      { display: grid; grid-template-columns: 1fr 1.1fr; gap: 44px; align-items: start; }
+
+/* ─── PROSE ─── */
+.prose { max-width: 820px; margin-bottom: 40px; }
+.prose p { font-size: 15px; color: var(--g7); line-height: 1.78; margin-bottom: 16px; }
+.prose p:last-child { margin-bottom: 0; }
+
+/* ─── TIMELINE ─── */
+.tl-wrap {
+  margin-top: 56px;
+  position: relative;
+}
+.tl-rail {
+  position: absolute;
+  top: 26px;
+  left: 12.5%; right: 12.5%;
+  height: 1px;
+  background: var(--g3);
+  z-index: 0;
+}
+.tl-rail-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold) 0%, rgba(206,165,78,0.35) 100%);
+  width: 0%;
+  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+.tl-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+  z-index: 1;
+}
+.tl-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 10px;
+}
+.tl-node-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.tl-node {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid var(--g3);
+  background: var(--black);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  transition: border-color 0.4s, background 0.4s;
+  flex-shrink: 0;
+}
+.tl-node svg { transition: opacity 0.4s; }
+.tl-node.lit { border-color: var(--gold); background: var(--gold-dim); }
+.tl-year {
+  font-size: 11px; font-weight: 800;
+  color: var(--gold); letter-spacing: 0.1em;
+  margin-top: 12px; text-align: center;
+}
+.tl-company {
+  font-size: 16px; font-weight: 700;
+  text-align: center; margin-bottom: 2px;
+}
+.tl-tag-row {
+  display: flex; gap: 5px; flex-wrap: wrap;
+  justify-content: center; margin-bottom: 16px;
+}
+.tl-tag {
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--g6); border: 1px solid var(--g4);
+  padding: 2px 8px; border-radius: 100px;
+}
+.tl-card {
+  background: var(--g1);
+  border: 1px solid var(--g3);
+  border-radius: var(--r-md);
+  padding: 18px;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.tl-card.on { opacity: 1; transform: translateY(0); }
+.tl-card-section {
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--gold); margin-bottom: 8px;
+}
+.tl-method-list, .tl-app-list {
+  list-style: none;
+  margin-bottom: 14px;
+}
+.tl-method-list li, .tl-app-list li {
+  font-size: 11px; color: var(--g6);
+  padding: 4px 0;
+  border-bottom: 1px solid var(--g3);
+  line-height: 1.4;
+  display: flex; align-items: flex-start; gap: 6px;
+}
+.tl-method-list li:last-child, .tl-app-list li:last-child { border-bottom: none; }
+.tl-bullet { color: var(--gold); flex-shrink: 0; font-size: 8px; margin-top: 5px; }
+
+/* ─── ORCHESTRA / PRINCIPLE ─── */
+.orch-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--g3);
+  border: 1px solid var(--g3);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  margin-top: 48px;
+}
+.orch-card {
+  background: var(--black);
+  padding: 36px 28px;
+  position: relative;
+  transition: background 0.2s;
+}
+.orch-card:hover { background: var(--g1); }
+.orch-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.orch-icon-gold { background: var(--gold-dim); border: 1px solid rgba(206,165,78,0.3); }
+.orch-icon-purp { background: var(--purp-dim); border: 1px solid rgba(108,56,159,0.35); }
+.orch-role {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--g6); margin-bottom: 8px;
+}
+.orch-h { font-size: 22px; font-weight: 700; margin-bottom: 14px; letter-spacing: -0.01em; }
+.orch-p { font-size: 13px; color: var(--g6); line-height: 1.72; }
+.orch-bar {
+  margin-top: 18px; padding-top: 18px;
+  border-top: 1px solid var(--g3);
+  font-size: 11px; color: var(--g5);
+  font-style: italic;
+}
+.orch-tag {
+  display: inline-block; font-size: 10px; font-weight: 600;
+  padding: 3px 9px; border-radius: 100px;
+  border: 1px solid var(--g4); color: var(--g7);
+  margin-bottom: 6px;
+}
+.orch-synthesis {
+  background: var(--g1);
+  border: 1px solid var(--g3);
+  border-radius: var(--r-lg);
+  padding: 28px 32px;
+  margin-top: 16px;
+  display: flex; gap: 20px; align-items: flex-start;
+}
+.orch-synth-accent {
+  width: 3px; flex-shrink: 0;
+  background: linear-gradient(180deg, var(--gold), var(--purple));
+  border-radius: 3px;
+  align-self: stretch;
+}
+.orch-synth-text { font-size: 15px; color: var(--g7); line-height: 1.72; font-style: italic; }
+
+/* ─── JUNGIAN DIAGRAM ─── */
+.jung-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 44px; align-items: start; margin-top: 40px; }
+.jung-svg-wrap {
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-lg); padding: 20px;
+  overflow: hidden;
+}
+.jung-svg-wrap svg { display: block; width: 100%; height: auto; }
+.jung-right { display: flex; flex-direction: column; gap: 14px; }
+.axis-card {
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-md); padding: 22px;
+  position: relative; overflow: hidden;
+}
+.axis-card::before {
+  content: ''; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 3px;
+}
+.axis-gold::before { background: var(--gold); }
+.axis-purp::before { background: var(--purple); }
+.axis-h {
+  font-size: 13px; font-weight: 700;
+  margin-bottom: 6px;
+}
+.axis-p { font-size: 12px; color: var(--g6); line-height: 1.65; }
+.axis-micro {
+  margin-top: 12px; padding-top: 12px;
+  border-top: 1px solid var(--g3);
+  font-size: 11px; color: var(--g5); font-style: italic;
+}
+.jung-fn-bar {
+  display: flex; gap: 4px; flex-wrap: wrap;
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid var(--g3);
+}
+.fn-chip {
+  padding: 5px 10px;
+  background: var(--g3); border-radius: 6px;
+  font-size: 11px; font-weight: 700; color: var(--g7);
+  letter-spacing: 0.04em;
+}
+.fn-chip-gold { background: var(--gold-dim); color: var(--gold); }
+
+/* ─── FFM DIAGRAM ─── */
+.ffm-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 44px; align-items: start; margin-top: 40px; }
+.ffm-svg-wrap {
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-lg); padding: 24px;
+  overflow: hidden;
+}
+.ffm-svg-wrap svg { display: block; width: 100%; height: auto; }
+.ffm-right { display: flex; flex-direction: column; gap: 14px; }
+
+/* ─── PROTOCOL CARDS ─── */
+.proto-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 36px;
+}
+.proto-num {
+  width: 34px; height: 34px;
+  border: 1.5px solid var(--gold);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; color: var(--gold);
+  flex-shrink: 0;
+}
+.proto-title-block .proto-cat {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--g6);
+}
+.proto-title-block .proto-name {
+  font-size: 22px; font-weight: 700; letter-spacing: -0.01em;
+}
+
+/* Brainwriting flow */
+.bw-phases {
+  display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr;
+  align-items: center; gap: 0;
+  margin-top: 28px;
+}
+.bw-phase-card {
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-md); padding: 22px;
+  position: relative;
+}
+.bw-phase-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  border-radius: var(--r-md) var(--r-md) 0 0;
+  background: var(--gold); opacity: 0.5;
+}
+.bw-arrow { display: flex; align-items: center; justify-content: center; color: var(--g4); }
+.bw-phase-label {
+  font-size: 9px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--gold); margin-bottom: 6px;
+}
+.bw-phase-name { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.bw-phase-desc { font-size: 12px; color: var(--g6); line-height: 1.65; }
+.bw-counters {
+  display: flex; gap: 10px; margin-top: 12px; padding-top: 12px;
+  border-top: 1px solid var(--g3);
+}
+.bw-ctr {
+  flex: 1; text-align: center;
+  background: var(--black); border: 1px solid var(--g3);
+  border-radius: var(--r-sm); padding: 8px;
+}
+.bw-ctr-val { font-size: 18px; font-weight: 800; color: var(--gold); }
+.bw-ctr-lbl { font-size: 9px; color: var(--g6); text-transform: uppercase; letter-spacing: 0.08em; }
+.bw-viz {
+  margin-top: 28px;
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-md); padding: 22px;
+}
+.bw-viz-title { font-size: 11px; font-weight: 700; color: var(--g6); text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 16px; }
+.bw-cards { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 16px; }
+.bw-card-item {
+  background: var(--black); border: 1px solid var(--g3);
+  border-radius: var(--r-sm); padding: 12px;
+}
+.bw-card-role { font-size: 9px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; }
+.bw-card-text { font-size: 11px; color: var(--g7); line-height: 1.5; }
+.bw-card-tag { font-size: 10px; color: var(--g5); margin-top: 6px; font-style: italic; }
+
+/* Mendelow matrix */
+.mend-wrap {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 8px;
+  align-items: center;
+}
+.mend-y-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--g6); text-align: center;
+}
+.mend-matrix-col { display: flex; flex-direction: column; gap: 8px; }
+.mend-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mend-cell {
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-md); padding: 22px;
+  position: relative; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.mend-cell:hover { border-color: var(--gold); }
+.mend-cell-type {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--g6); margin-bottom: 4px;
+}
+.mend-cell-name { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.mend-cell-example {
+  font-size: 11px; color: var(--g6);
+  font-style: italic; margin-bottom: 12px;
+}
+.mend-proto-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 100px;
+  border: 1px solid var(--g4);
+  font-size: 10px; font-weight: 700;
+  color: var(--gold); text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.mend-directive { font-size: 11px; color: var(--g6); margin-top: 8px; line-height: 1.5; }
+.mend-x-label {
+  text-align: center;
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--g6); grid-column: 2; margin-top: 4px;
+}
+
+/* Hoffman diagram */
+.hoffman-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; margin-top: 28px; }
+.hoffman-svg-wrap {
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-lg); padding: 20px;
+}
+.hoffman-svg-wrap svg { display: block; width: 100%; height: auto; }
+.hoffman-points { display: flex; flex-direction: column; gap: 12px; }
+.hoff-point {
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-md); padding: 18px;
+  position: relative; overflow: hidden;
+}
+.hoff-point::before {
+  content: ''; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--gold);
+}
+.hoff-label {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--gold); margin-bottom: 4px;
+}
+.hoff-h { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+.hoff-p { font-size: 12px; color: var(--g6); line-height: 1.6; }
+
+/* ─── BENCHMARK / OUTCOMES ─── */
+.bench-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 36px; }
+.bench-card {
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-md); padding: 26px;
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+.bench-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.6;
+}
+.bench-org {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--g6); margin-bottom: 16px;
+}
+.bench-val {
+  font-size: 46px; font-weight: 800;
+  color: var(--gold); letter-spacing: -0.04em;
+  line-height: 1; margin-bottom: 6px;
+}
+.bench-metric { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.bench-baseline { font-size: 11px; color: var(--g5); margin-bottom: 12px; font-style: italic; }
+.bench-impact {
+  font-size: 11px; color: var(--g6);
+  border-top: 1px solid var(--g3);
+  padding-top: 10px; line-height: 1.55;
+}
+.bench-impact strong { color: var(--g8); font-weight: 600; }
+
+/* ─── TESTIMONIALS ─── */
+.test-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 48px; }
+.test-card {
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-md); padding: 28px;
+}
+.test-type {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--g6); margin-bottom: 16px;
+}
+.test-type-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--g5); }
+.test-quote { font-size: 14px; color: var(--g7); line-height: 1.78; margin-bottom: 22px; font-style: italic; }
+.test-person { display: flex; align-items: center; gap: 12px; }
+.test-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--g3); border: 1px solid var(--g4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: var(--g6); flex-shrink: 0;
+}
+.test-name { font-size: 14px; font-weight: 600; margin-bottom: 1px; }
+.test-role { font-size: 11px; color: var(--g6); }
+
+/* ─── METRICS ROW ─── */
+.metric-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 12px; }
+.metric-row-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-top: 12px; }
+.m-chip {
+  background: var(--black); border: 1px solid var(--g3);
+  border-radius: var(--r-sm); padding: 14px;
+  text-align: center;
+}
+.m-chip-val {
+  font-size: 24px; font-weight: 800; color: var(--gold);
+  letter-spacing: -0.03em; line-height: 1; margin-bottom: 4px;
+}
+.m-chip-lbl { font-size: 10px; color: var(--g6); letter-spacing: 0.06em; }
+
+/* ─── CONTEXT TAG ─── */
+.ctx-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.ctx-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; background: var(--g1); border: 1px solid var(--g3);
+  border-radius: 100px; font-size: 12px; font-weight: 500; color: var(--g7);
+}
+.ctx-chip-gold { border-color: rgba(206,165,78,0.3); color: var(--gold); background: var(--gold-dim); }
+
+/* ─── FOOTER ─── */
+footer { background: #080808; border-top: 1px solid var(--g3); margin-top: 80px; }
+.footer-body {
+  padding: 56px 0 44px;
+  display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 40px;
+}
+.footer-logo { font-size: 20px; font-weight: 800; letter-spacing: 0.06em; margin-bottom: 6px; }
+.footer-tagline { font-size: 12px; color: var(--g6); margin-bottom: 12px; }
+.footer-email { font-size: 13px; color: var(--g7); }
+.ft-col-h { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--g6); margin-bottom: 14px; }
+.ft-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.ft-links a { font-size: 13px; color: var(--g7); transition: color 0.18s; }
+.ft-links a:hover { color: var(--white); }
+.footer-bar { border-top: 1px solid var(--g3); padding: 18px 0; display: flex; justify-content: space-between; font-size: 11px; color: var(--g6); }
+hr.sep { border: none; border-top: 1px solid var(--g3); margin: 32px 0; }
+
+/* ─── ANIMATED NUMBER ─── */
+.num-up { color: var(--gold); font-weight: 800; }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:960px){
+  .tl-grid { grid-template-columns: 1fr 1fr; }
+  .tl-rail { display: none; }
+  .orch-wrap { grid-template-columns: 1fr; }
+  .jung-layout { grid-template-columns: 1fr; }
+  .ffm-layout { grid-template-columns: 1fr; }
+  .hoffman-layout { grid-template-columns: 1fr; }
+  .bench-grid { grid-template-columns: 1fr 1fr; }
+  .footer-body { grid-template-columns: 1fr; gap: 32px; }
+  .bw-phases { grid-template-columns: 1fr; }
+  .bw-arrow { display: none; }
+  .toc-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+}
+@media(max-width:640px){
+  .hero { padding: 108px 0 64px; }
+  .chapter { padding: 56px 0; }
+  .tl-grid { grid-template-columns: 1fr; }
+  .test-grid { grid-template-columns: 1fr; }
+  .bench-grid { grid-template-columns: 1fr; }
+  .bw-cards { grid-template-columns: 1fr 1fr; }
+  .metric-row { grid-template-columns: 1fr 1fr; }
+  .mend-row { grid-template-columns: 1fr; }
+  .header-inner { padding: 0 24px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="https://felipelynden.com" class="back-link">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+        <path d="M9.5 12L5 7.5 9.5 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      LYNDEN
+    </a>
+  </div>
+</header>
+
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+  <div class="wrap">
+    <div class="hero-context rv">
+      <span>LYNDEN</span><span class="hero-dot">·</span><span>BEHIND THE WORK</span>
+    </div>
+    <h1 class="hero-h1 rv d1">Leadership<br>Blueprint</h1>
+    <p class="hero-sub rv d2">
+      A documented account of the systems used to build, develop, and govern teams — across four organizations, a decade of operational practice, and two diagnostic frameworks.
+    </p>
+    <div class="hero-pills rv d3">
+      <div class="pill">4 Organizations</div>
+      <div class="pill">10 Years</div>
+      <div class="pill">2 Psychometric Frameworks</div>
+      <div class="pill">3 Operational Protocols</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ DISCLAIMER ═══════════ -->
+<div class="wrap" style="margin-bottom:80px;">
+  <div class="rv">
+    <div class="disclaimer-box">
+      <svg class="disclaimer-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M9 1.5L1.5 6v6l7.5 4.5 7.5-4.5V6L9 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+        <path d="M9 8.5V6M9 11h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="dis-label">Confidentiality Notice</div>
+        <p class="dis-text">This document presents a synthesis of operational experience structured around the leadership systems applied across four organizations. All performance metrics and specific figures are presented as composites to protect proprietary information under active NDA obligations — engineered to accurately reflect the scale and relative impact of each outcome. External market data is sourced from public records. Identities featured have given explicit consent.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ TOC ═══════════ -->
+<section class="toc-section">
+  <div class="wrap">
+    <div class="toc-label rv">Document Map</div>
+    <div class="toc-grid rv d1">
+      <div class="toc-item">
+        <div class="toc-n">I</div>
+        <div>
+          <div class="toc-title">Applied Methodologies</div>
+          <div class="toc-desc">The tools, frameworks, and operational systems deployed across four distinct organizational contexts over ten years.</div>
+        </div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-n">II</div>
+        <div>
+          <div class="toc-title">Team Principle</div>
+          <div class="toc-desc">The foundational model governing how individual mastery integrates with collective execution and systemic stability.</div>
+        </div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-n">III</div>
+        <div>
+          <div class="toc-title">Psychometric Frameworks</div>
+          <div class="toc-desc">Two diagnostic instruments — Jungian cognitive structure and Five Factor behavioral disposition — applied to team architecture and development planning.</div>
+        </div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-n">IV</div>
+        <div>
+          <div class="toc-title">Operational Protocols</div>
+          <div class="toc-desc">Three structured instruments for solutions generation, stakeholder governance, and career development alignment.</div>
+        </div>
+      </div>
+      <div class="toc-item" style="grid-column:1/-1;">
+        <div class="toc-n">V</div>
+        <div>
+          <div class="toc-title">Benchmark & Outcomes</div>
+          <div class="toc-desc">Composite evidence of the systems in practice — quantitative outcomes from three operational contexts, benchmarked against industry baselines, alongside direct qualitative feedback.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ I · APPLIED METHODOLOGIES ═══════════ -->
+<section class="chapter" id="methodologies">
+  <div class="wrap">
+    <div class="chapter-head rv">
+      <div class="ch-meta">
+        <span class="ch-cat">Section One</span>
+        <span class="ch-badge">1</span>
+      </div>
+      <h2 class="ch-h2">Applied Methodologies</h2>
+      <p class="ch-sub">The operational record — tools selected, systems deployed, contexts defined</p>
+    </div>
+
+    <div class="prose rv">
+      <p>The premise underlying all of this is that context governs method. No framework is universally correct, and no toolkit applies intact across environments. What follows is the methodological record — the diagnostic lens, the tools selected, and the operational infrastructure built for each distinct context.</p>
+      <p>Each organization represented a different stage, business model, and constraint set. The consistency across them was not in the tools used, but in the discipline applied to selecting them.</p>
+    </div>
+
+    <div class="tl-wrap rv d1">
+      <div class="tl-rail">
+        <div class="tl-rail-fill" id="tl-fill"></div>
+      </div>
+      <div class="tl-grid">
+
+        <!-- HEWYSA -->
+        <div class="tl-col">
+          <div class="tl-node-wrap">
+            <div class="tl-node" id="tl-n0">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <rect x="2" y="2" width="14" height="14" rx="3" stroke="var(--gold)" stroke-width="1.4"/>
+                <path d="M6 9h6M9 6v6" stroke="var(--gold)" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="tl-year">2015</div>
+            <div class="tl-company">HEWYSA</div>
+            <div class="tl-tag-row">
+              <span class="tl-tag">HR Tech</span>
+              <span class="tl-tag">SaaS</span>
+            </div>
+          </div>
+          <div class="tl-card" data-delay="0">
+            <div class="tl-card-section">Core Methodologies</div>
+            <ul class="tl-method-list">
+              <li><span class="tl-bullet">◆</span>BPM (Business Process Mgmt.)</li>
+              <li><span class="tl-bullet">◆</span>CBM (Competency Management)</li>
+              <li><span class="tl-bullet">◆</span>Agile Frameworks: Scrum</li>
+              <li><span class="tl-bullet">◆</span>CRM & Go-to-Market</li>
+            </ul>
+            <div class="tl-card-section">Core Applications</div>
+            <ul class="tl-app-list">
+              <li><span class="tl-bullet">◆</span>PCCS (Proprietary HRMS)</li>
+              <li><span class="tl-bullet">◆</span>Process Modeling: Bizagi</li>
+              <li><span class="tl-bullet">◆</span>Project Mgmt.: Jira</li>
+              <li><span class="tl-bullet">◆</span>BI Analytics: QlikView</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- TOTVS -->
+        <div class="tl-col">
+          <div class="tl-node-wrap">
+            <div class="tl-node" id="tl-n1">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <circle cx="9" cy="9" r="6" stroke="var(--gold)" stroke-width="1.4"/>
+                <path d="M9 5.5v3.5l2.5 1.5" stroke="var(--gold)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="tl-year">2016</div>
+            <div class="tl-company">TOTVS</div>
+            <div class="tl-tag-row">
+              <span class="tl-tag">ERP Tech</span>
+              <span class="tl-tag">B3 Listed</span>
+            </div>
+          </div>
+          <div class="tl-card" data-delay="1">
+            <div class="tl-card-section">Core Methodologies</div>
+            <ul class="tl-method-list">
+              <li><span class="tl-bullet">◆</span>CAF (Cloud Adoption)</li>
+              <li><span class="tl-bullet">◆</span>JTBD (Jobs To Be Done)</li>
+              <li><span class="tl-bullet">◆</span>Blue Ocean Strategy</li>
+              <li><span class="tl-bullet">◆</span>Psychometric Profiling: FFM</li>
+            </ul>
+            <div class="tl-card-section">Core Applications</div>
+            <ul class="tl-app-list">
+              <li><span class="tl-bullet">◆</span>RM Protheus (Proprietary ERP)</li>
+              <li><span class="tl-bullet">◆</span>Cloud Infrastructure: AWS/Azure</li>
+              <li><span class="tl-bullet">◆</span>BI Analytics: Power BI</li>
+              <li><span class="tl-bullet">◆</span>CRM: Salesforce</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- TRAKTOR -->
+        <div class="tl-col">
+          <div class="tl-node-wrap">
+            <div class="tl-node" id="tl-n2">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M3 9l4 4 8-8" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="tl-year">2021</div>
+            <div class="tl-company">TRAKTOR</div>
+            <div class="tl-tag-row">
+              <span class="tl-tag">MarTech</span>
+              <span class="tl-tag">Scale-up</span>
+            </div>
+          </div>
+          <div class="tl-card" data-delay="2">
+            <div class="tl-card-section">Core Methodologies</div>
+            <ul class="tl-method-list">
+              <li><span class="tl-bullet">◆</span>SLA Architecture</li>
+              <li><span class="tl-bullet">◆</span>OKR & KPI Frameworks</li>
+              <li><span class="tl-bullet">◆</span>Viable System Model (VSM)</li>
+              <li><span class="tl-bullet">◆</span>Team Development Plan (IDP)</li>
+            </ul>
+            <div class="tl-card-section">Core Applications</div>
+            <ul class="tl-app-list">
+              <li><span class="tl-bullet">◆</span>Martech Ecosystem: HubSpot</li>
+              <li><span class="tl-bullet">◆</span>Custom Predictive AI Models</li>
+              <li><span class="tl-bullet">◆</span>Work OS: Asana Enterprise</li>
+              <li><span class="tl-bullet">◆</span>Data Visualization: Tableau</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- SCALE AI -->
+        <div class="tl-col">
+          <div class="tl-node-wrap">
+            <div class="tl-node" id="tl-n3">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <circle cx="9" cy="9" r="2.5" fill="var(--gold)"/>
+                <circle cx="9" cy="9" r="5.5" stroke="var(--gold)" stroke-width="1.3"/>
+                <circle cx="9" cy="9" r="8" stroke="var(--gold)" stroke-width="0.8" stroke-dasharray="2 2"/>
+              </svg>
+            </div>
+            <div class="tl-year">2024</div>
+            <div class="tl-company">SCALE AI</div>
+            <div class="tl-tag-row">
+              <span class="tl-tag">AI Tech</span>
+              <span class="tl-tag">Series F</span>
+            </div>
+          </div>
+          <div class="tl-card" data-delay="3">
+            <div class="tl-card-section">Core Methodologies</div>
+            <ul class="tl-method-list">
+              <li><span class="tl-bullet">◆</span>RLHF (Reinforcement Learning)</li>
+              <li><span class="tl-bullet">◆</span>Unit Economics Optimization</li>
+              <li><span class="tl-bullet">◆</span>Ontology & Taxonomy Design</li>
+              <li><span class="tl-bullet">◆</span>CoT (Chain-of-Thought)</li>
+            </ul>
+            <div class="tl-card-section">Core Applications</div>
+            <ul class="tl-app-list">
+              <li><span class="tl-bullet">◆</span>Frontier LLMs: GPT / Gemini</li>
+              <li><span class="tl-bullet">◆</span>Vector Database: Pinecone</li>
+              <li><span class="tl-bullet">◆</span>Data Annotation: Scale Rapid</li>
+              <li><span class="tl-bullet">◆</span>Model Evaluation: Scale Evals</li>
+            </ul>
+          </div>
+        </div>
+
+      </div><!-- /tl-grid -->
+    </div><!-- /tl-wrap -->
+  </div>
+</section>
+
+
+<!-- ═══════════ II · TEAM PRINCIPLE ═══════════ -->
+<section class="chapter" id="principle">
+  <div class="wrap">
+    <div class="chapter-head rv">
+      <div class="ch-meta">
+        <span class="ch-cat">Section Two</span>
+        <span class="ch-badge">2</span>
+      </div>
+      <h2 class="ch-h2">Team Principle</h2>
+      <p class="ch-sub">The orchestral model — how individual mastery and collective execution become one system</p>
+    </div>
+
+    <div class="prose rv">
+      <p>A well-functioning team operates as an ensemble. Individual mastery and collective synchronization are not competing priorities — they are codependent conditions. The performance of the whole depends on three distinct layers working in concert: the Conductor (leadership), the Musician (individual mastery), and the Ensemble (system synergy).</p>
+      <p>Each layer has a specific cognitive job. When all three are operating correctly, the team runs with a combination of clarity, autonomy, and resilience that no management structure alone can produce.</p>
+    </div>
+
+    <div class="orch-wrap rv d1">
+      <!-- Conductor -->
+      <div class="orch-card">
+        <div class="orch-icon orch-icon-gold">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <circle cx="11" cy="8" r="3.5" stroke="var(--gold)" stroke-width="1.5"/>
+            <path d="M4 19c0-3.866 3.134-7 7-7h0c3.866 0 7 3.134 7 7" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M15 4l3 3M18 4l-3 3" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="orch-role">Leadership Layer</div>
+        <div class="orch-h">Conductor's Brain</div>
+        <p class="orch-p">The Conductor holds the complete architecture in mind — strategic intent, individual capabilities, and the real-time dynamics between them. The role is to establish the framework for execution: defining direction, setting tempo, and maintaining clarity. A team that never has to guess the priority or resolve ambiguity internally is a team that can focus entirely on delivery.</p>
+        <div class="orch-bar">Owns the score. Calibrates in real time. Removes ambiguity before it becomes friction.</div>
+      </div>
+
+      <!-- Musician -->
+      <div class="orch-card">
+        <div class="orch-icon orch-icon-purp">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <rect x="3" y="6" width="16" height="12" rx="2" stroke="var(--purple)" stroke-width="1.5"/>
+            <path d="M7 6V4.5a4 4 0 018 0V6" stroke="var(--purple)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M11 12v-1.5M9 12h4" stroke="var(--purple)" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="orch-role">Individual Layer</div>
+        <div class="orch-h">Musician's Brain</div>
+        <p class="orch-p">Every professional is accountable for their instrument — their zone of genius. Real accountability requires understanding why the contribution matters, not just what it is. That understanding is what converts task execution into ownership, and ownership is the precondition for the kind of judgment calls that can't be scripted. The Conductor's job is to ensure each person is positioned where their strengths are structural, not incidental.</p>
+        <div class="orch-bar">Accountable for the instrument. Operates with informed autonomy. Grows through strategic placement.</div>
+      </div>
+
+      <!-- Ensemble -->
+      <div class="orch-card">
+        <div class="orch-icon orch-icon-gold">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <circle cx="7" cy="11" r="2.5" stroke="var(--gold)" stroke-width="1.4"/>
+            <circle cx="15" cy="11" r="2.5" stroke="var(--gold)" stroke-width="1.4"/>
+            <circle cx="11" cy="6" r="2.5" stroke="var(--gold)" stroke-width="1.4"/>
+            <path d="M9.2 7.8L8.2 9.3M12.8 7.8l1 1.5M9.5 11h3" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="orch-role">System Layer</div>
+        <div class="orch-h">Ensemble Purpose</div>
+        <p class="orch-p">The Ensemble is where individual roles become a unified strategic output. When direction is unambiguous and governance is stable, people can execute their complex, independent functions without coordination overhead. True autonomy is unlocked not by removing structure, but by making structure so clear that it stops requiring active management. The collective result consistently exceeds what any sum of individual contributions could produce.</p>
+        <div class="orch-bar">Bound by shared understanding. Unified output. Self-sustaining execution cadence.</div>
+      </div>
+    </div>
+
+    <div class="orch-synthesis rv d2">
+      <div class="orch-synth-accent"></div>
+      <p class="orch-synth-text">The synthesis of these three layers defines the organizational execution model. A team fully bought into a singular direction, operating with clear governance and individual accountability, converges individual mastery with systemic stability — producing outcomes that neither top-down management nor flat autonomy can achieve independently.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ III · PSYCHOMETRICS ═══════════ -->
+<section class="chapter" id="psychometrics">
+  <div class="wrap">
+    <div class="chapter-head rv">
+      <div class="ch-meta">
+        <span class="ch-cat">Section Three</span>
+        <span class="ch-badge ch-badge-p">3</span>
+      </div>
+      <h2 class="ch-h2">Psychometric Frameworks</h2>
+      <p class="ch-sub">Cognitive structure and behavioral disposition as diagnostic instruments for team architecture</p>
+    </div>
+
+    <!-- III.A — Jungian -->
+    <div class="rv" style="margin-bottom:56px;">
+      <div class="ctx-bar">
+        <span class="ctx-chip ctx-chip-gold">Framework A</span>
+        <span class="ctx-chip">Type: Cognitive Structure</span>
+        <span class="ctx-chip">Applied: TOTVS, TRAKTOR</span>
+      </div>
+
+      <h3 style="font-size:24px;font-weight:700;margin-bottom:12px;letter-spacing:-0.01em;">Jungian Cognitive Functions</h3>
+      <p style="font-size:15px;color:var(--g7);line-height:1.75;max-width:820px;margin-bottom:0;">Effective team management requires diagnosing how people process information — not just what they produce. The Jungian Functions model provides a structural map of internal cognitive architecture, organized across two axes. The Specialization axis (Dominant + Auxiliary) describes the reliable operational mode. The Integration axis (Tertiary + Inferior) describes the growth path and the primary stress trigger. Together, these two axes give a precise picture of where a person operates well, and where they need deliberate support.</p>
+
+      <div class="jung-layout">
+        <!-- SVG Diagram -->
+        <div class="jung-svg-wrap rv d1">
+          <svg viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="archGold" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#CEA54E" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#CEA54E" stop-opacity="0.3"/>
+              </linearGradient>
+              <linearGradient id="archPurp" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#6C389F" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#6C389F" stop-opacity="0.9"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Background arch fill zones -->
+            <path d="M60 260 Q60 60 250 60 Q440 60 440 260 L380 260 Q380 110 250 110 Q120 110 120 260 Z" fill="rgba(206,165,78,0.04)" stroke="none"/>
+            <path d="M120 260 Q120 110 250 110 Q380 110 380 260 L320 260 Q320 155 250 155 Q180 155 180 260 Z" fill="rgba(108,56,159,0.05)" stroke="none"/>
+
+            <!-- Outer arch - Specialization (left half) -->
+            <path d="M60 260 Q60 60 250 60" fill="none" stroke="url(#archGold)" stroke-width="2.5" stroke-linecap="round"
+              style="stroke-dasharray:280;stroke-dashoffset:280" class="arch-draw"/>
+            <!-- Outer arch - Integration (right half) -->
+            <path d="M250 60 Q440 60 440 260" fill="none" stroke="url(#archPurp)" stroke-width="2.5" stroke-linecap="round"
+              style="stroke-dasharray:280;stroke-dashoffset:280" class="arch-draw-2"/>
+
+            <!-- Inner divider line -->
+            <line x1="250" y1="60" x2="250" y2="265" stroke="#333" stroke-width="1" stroke-dasharray="4 4"/>
+
+            <!-- Axis labels -->
+            <text x="115" y="52" fill="#CEA54E" font-size="10" font-weight="700" font-family="Figtree, sans-serif" letter-spacing="0.08em" text-anchor="middle">SPECIALIZATION</text>
+            <text x="385" y="52" fill="#6C389F" font-size="10" font-weight="700" font-family="Figtree, sans-serif" letter-spacing="0.08em" text-anchor="middle">INTEGRATION</text>
+
+            <!-- Quadrant labels -->
+            <text x="145" y="170" fill="#888" font-size="11" font-family="Figtree, sans-serif" text-anchor="middle" font-weight="500">Auxiliary</text>
+            <text x="145" y="240" fill="#CCCCCC" font-size="13" font-family="Figtree, sans-serif" text-anchor="middle" font-weight="700">Dominant</text>
+            <text x="355" y="170" fill="#888" font-size="11" font-family="Figtree, sans-serif" text-anchor="middle" font-weight="500">Tertiary</text>
+            <text x="355" y="240" fill="#888" font-size="13" font-family="Figtree, sans-serif" text-anchor="middle" font-weight="600">Inferior</text>
+
+            <!-- Arrows indicating direction -->
+            <path d="M70 50 L50 50 L50 265" fill="none" stroke="#333" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M430 50 L450 50 L450 265" fill="none" stroke="#333" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+            <polygon points="50,270 46,262 54,262" fill="#333"/>
+            <polygon points="450,270 446,262 454,262" fill="#333"/>
+
+            <!-- Divider base line -->
+            <line x1="55" y1="268" x2="445" y2="268" stroke="#262626" stroke-width="1.5"/>
+
+            <!-- Cognitive function chips at base -->
+            <g transform="translate(0,278)">
+              <!-- 8 functions -->
+              <rect x="52" y="0" width="44" height="22" rx="5" fill="#1a1a1a" stroke="#333"/>
+              <text x="74" y="15" fill="#CEA54E" font-size="11" font-weight="700" font-family="Figtree, sans-serif" text-anchor="middle">Te</text>
+
+              <rect x="102" y="0" width="44" height="22" rx="5" fill="#1a1a1a" stroke="#333"/>
+              <text x="124" y="15" fill="#aaa" font-size="11" font-weight="600" font-family="Figtree, sans-serif" text-anchor="middle">Ti</text>
+
+              <rect x="152" y="0" width="44" height="22" rx="5" fill="#1a1a1a" stroke="#333"/>
+              <text x="174" y="15" fill="#CEA54E" font-size="11" font-weight="700" font-family="Figtree, sans-serif" text-anchor="middle">Ne</text>
+
+              <rect x="202" y="0" width="44" height="22" rx="5" fill="#1a1a1a" stroke="#333"/>
+              <text x="224" y="15" fill="#aaa" font-size="11" font-weight="600" font-family="Figtree, sans-serif" text-anchor="middle">Ni</text>
+
+              <rect x="252" y="0" width="44" height="22" rx="5" fill="#1a1a1a" stroke="#333"/>
+              <text x="274" y="15" fill="#aaa" font-size="11" font-weight="600" font-family="Figtree, sans-serif" text-anchor="middle">Se</text>
+
+              <rect x="302" y="0" width="44" height="22" rx="5" fill="#1a1a1a" stroke="#333"/>
+              <text x="324" y="15" fill="#aaa" font-size="11" font-weight="600" font-family="Figtree, sans-serif" text-anchor="middle">Si</text>
+
+              <rect x="352" y="0" width="44" height="22" rx="5" fill="#1a1a1a" stroke="#333"/>
+              <text x="374" y="15" fill="#aaa" font-size="11" font-weight="600" font-family="Figtree, sans-serif" text-anchor="middle">Fe</text>
+
+              <rect x="402" y="0" width="44" height="22" rx="5" fill="#1a1a1a" stroke="#333"/>
+              <text x="424" y="15" fill="#aaa" font-size="11" font-weight="600" font-family="Figtree, sans-serif" text-anchor="middle">Fi</text>
+
+              <!-- COGNITIVE FUNCTIONS label -->
+              <text x="250" y="38" fill="#444" font-size="9" font-weight="700" font-family="Figtree, sans-serif" text-anchor="middle" letter-spacing="0.12em">COGNITIVE FUNCTIONS</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Right side: axis explanations -->
+        <div class="jung-right rv d2">
+          <div class="axis-card axis-gold">
+            <div class="axis-h">Core Axis — Specialization</div>
+            <p class="axis-p">The Dominant function is the default lens on reality — the most trusted processing mode. The Auxiliary is the main tool for acting on that reality. Together, they form the reliable operational core of any individual: the combination that produces high-competence output under normal conditions.</p>
+            <div class="axis-micro">Application: assign tasks that map to the Dominant/Auxiliary pairing. Execution quality will be consistent.</div>
+          </div>
+
+          <div class="axis-card axis-purp">
+            <div class="axis-h">Shadow Axis — Integration</div>
+            <p class="axis-p">The Tertiary function is an aspirational source for new solutions — useful, but often less disciplined. The Inferior is the primary stress trigger and cognitive blind spot. Under significant load, the Inferior produces the errors that appear unpredictable but are, in fact, structurally predictable once diagnosed.</p>
+            <div class="axis-micro">Application: provide adaptive support structures for high-load scenarios that activate the Inferior function.</div>
+          </div>
+
+          <div class="axis-card axis-gold">
+            <div class="axis-h">Macro Application</div>
+            <p class="axis-p">The diagnostic is the foundation for a synergistic team composition. Pairing different cognitive architectures intentionally — a visionary Ni-Dominant with a pragmatic Si-Dominant — produces a team that is strong across the full range of problem types, not just the ones that match a single processing style.</p>
+            <div class="axis-micro">Application: team architecture, not just individual coaching.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- III.B — FFM -->
+    <hr class="sep rv">
+    <div class="rv" style="margin-top:48px;">
+      <div class="ctx-bar">
+        <span class="ctx-chip ctx-chip-gold">Framework B</span>
+        <span class="ctx-chip">Type: Behavioral Disposition</span>
+        <span class="ctx-chip">Applied: TOTVS, TRAKTOR, SCALE AI</span>
+      </div>
+
+      <h3 style="font-size:24px;font-weight:700;margin-bottom:12px;letter-spacing:-0.01em;">Five Factor Model (FFM)</h3>
+      <p style="font-size:15px;color:var(--g7);line-height:1.75;max-width:820px;margin-bottom:0;">Where the Jungian model addresses how people think, the FFM addresses how they are predisposed to act and react. It measures five behavioral domains, two of which are most operationally relevant: Conscientiousness and Neuroticism govern execution consistency and resilience, while Openness, Agreeableness, and Extraversion govern collaborative dynamics. The FFM doesn't predict cognitive output — it predicts behavioral patterns, role fit, and team chemistry.</p>
+
+      <div class="ffm-layout">
+        <!-- Left: axis explanations -->
+        <div class="ffm-right rv d1">
+          <div class="axis-card axis-gold">
+            <div class="axis-h">Axis I — Execution & Resilience</div>
+            <p class="axis-p">Conscientiousness is the key predictor of diligence, self-discipline, and delivery reliability. Neuroticism measures the default response to pressure, volatility, and environmental stress — the resilience coefficient. Together, these two traits define operational consistency.</p>
+            <div class="axis-micro">Application: diagnosing task and environment fit. High-C profiles are best suited for structured execution. High-N profiles perform best within stable, predictable systems.</div>
+          </div>
+
+          <div class="axis-card axis-purp">
+            <div class="axis-h">Axis II — Innovation & Interaction</div>
+            <p class="axis-p">Openness reveals orientation toward new ideas versus established processes — the innovation diagnostic. Agreeableness and Extraversion map the default approach to collaboration and social energy. These three traits inform communication structure, discovery processes, and cross-functional dynamics.</p>
+            <div class="axis-micro">Application: High-O profiles drive discovery initiatives. Agreeableness/Extraversion data shapes how to structure group work and manage collaborative energy.</div>
+          </div>
+
+          <div class="axis-card axis-gold">
+            <div class="axis-h">Macro Application</div>
+            <p class="axis-p">The FFM diagnostic enables complementary pairings. A high-Openness profile generates the ideas; a high-Conscientiousness profile executes them with discipline. Identifying these complementary traits allows team composition to cover the full spectrum from ideation to delivery, structurally rather than by chance.</p>
+            <div class="axis-micro">Application: team composition and role alignment across delivery and discovery functions.</div>
+          </div>
+        </div>
+
+        <!-- Right: pentagon SVG -->
+        <div class="ffm-svg-wrap rv d2">
+          <svg viewBox="0 0 500 460" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="pentFill" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#CEA54E" stop-opacity="0.12"/>
+                <stop offset="100%" stop-color="#6C389F" stop-opacity="0.12"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Pentagon grid lines (scale 25, 50, 75, 100) -->
+            <!-- Scale 25% -->
+            <polygon points="250,181 288,208 275,251 225,251 213,208" fill="none" stroke="#222" stroke-width="1"/>
+            <!-- Scale 50% -->
+            <polygon points="250,142 327,196 301,281 199,281 174,196" fill="none" stroke="#262626" stroke-width="1"/>
+            <!-- Scale 75% -->
+            <polygon points="250,103 366,184 327,311 173,311 134,184" fill="none" stroke="#262626" stroke-width="1"/>
+            <!-- Scale 100% (outer) -->
+            <polygon points="250,64 404,172 353,342 147,342 96,172" fill="none" stroke="#333" stroke-width="1.5"/>
+
+            <!-- Spokes from center to each vertex -->
+            <line x1="250" y1="203" x2="250" y2="64" stroke="#262626" stroke-width="1"/>
+            <line x1="250" y1="203" x2="404" y2="172" stroke="#262626" stroke-width="1"/>
+            <line x1="250" y1="203" x2="353" y2="342" stroke="#262626" stroke-width="1"/>
+            <line x1="250" y1="203" x2="147" y2="342" stroke="#262626" stroke-width="1"/>
+            <line x1="250" y1="203" x2="96" y2="172" stroke="#262626" stroke-width="1"/>
+
+            <!-- Profile fill (representative balanced profile) -->
+            <polygon points="250,99 372,183 333,315 167,315 129,183"
+              fill="url(#pentFill)" stroke="rgba(206,165,78,0.5)" stroke-width="1.5"/>
+
+            <!-- Vertex dots -->
+            <circle cx="250" cy="64" r="4" fill="#CEA54E"/>
+            <circle cx="404" cy="172" r="4" fill="#6C389F"/>
+            <circle cx="353" cy="342" r="4" fill="#6C389F"/>
+            <circle cx="147" cy="342" r="4" fill="#6C389F"/>
+            <circle cx="96" cy="172" r="4" fill="#CEA54E"/>
+
+            <!-- Axis I bracket (gold) - Conscientiousness + Neuroticism -->
+            <line x1="82" y1="165" x2="82" y2="349" stroke="rgba(206,165,78,0.4)" stroke-width="1.5" stroke-dasharray="3 2"/>
+            <text x="72" y="258" fill="#CEA54E" font-size="9" font-weight="700" font-family="Figtree, sans-serif" text-anchor="middle" letter-spacing="0.06em" transform="rotate(-90 72 258)">AXIS I</text>
+
+            <!-- Labels for each vertex -->
+            <!-- Openness - top -->
+            <text x="250" y="47" fill="#CEA54E" font-size="12" font-weight="700" font-family="Figtree, sans-serif" text-anchor="middle">Openness</text>
+            <text x="250" y="60" fill="#666" font-size="9" font-family="Figtree, sans-serif" text-anchor="middle">Curiosity · Innovation</text>
+
+            <!-- Agreeableness - upper right -->
+            <text x="424" y="168" fill="#aaa" font-size="12" font-weight="700" font-family="Figtree, sans-serif" text-anchor="start">Agreeableness</text>
+            <text x="424" y="180" fill="#555" font-size="9" font-family="Figtree, sans-serif" text-anchor="start">Diplomacy · Consensus</text>
+
+            <!-- Extraversion - lower right -->
+            <text x="370" y="362" fill="#aaa" font-size="12" font-weight="700" font-family="Figtree, sans-serif" text-anchor="start">Extraversion</text>
+            <text x="370" y="374" fill="#555" font-size="9" font-family="Figtree, sans-serif" text-anchor="start">Initiative · Influence</text>
+
+            <!-- Neuroticism - lower left -->
+            <text x="130" y="362" fill="#CEA54E" font-size="12" font-weight="700" font-family="Figtree, sans-serif" text-anchor="end">Neuroticism</text>
+            <text x="130" y="374" fill="#666" font-size="9" font-family="Figtree, sans-serif" text-anchor="end">Stability · Resilience</text>
+
+            <!-- Conscientiousness - upper left -->
+            <text x="76" y="168" fill="#CEA54E" font-size="12" font-weight="700" font-family="Figtree, sans-serif" text-anchor="end">Conscientiousness</text>
+            <text x="76" y="180" fill="#666" font-size="9" font-family="Figtree, sans-serif" text-anchor="end">Diligence · Discipline</text>
+
+            <!-- Scale labels -->
+            <text x="254" y="183" fill="#444" font-size="9" font-family="Figtree, sans-serif">25</text>
+            <text x="254" y="145" fill="#444" font-size="9" font-family="Figtree, sans-serif">50</text>
+            <text x="254" y="107" fill="#555" font-size="9" font-family="Figtree, sans-serif">75</text>
+
+            <!-- Axis II bracket (purple) - Openness, Agreeableness, Extraversion -->
+            <line x1="418" y1="165" x2="418" y2="349" stroke="rgba(108,56,159,0.4)" stroke-width="1.5" stroke-dasharray="3 2"/>
+            <text x="428" y="258" fill="#6C389F" font-size="9" font-weight="700" font-family="Figtree, sans-serif" text-anchor="middle" letter-spacing="0.06em" transform="rotate(90 428 258)">AXIS II</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ IV · PROTOCOLS ═══════════ -->
+<section class="chapter" id="protocols">
+  <div class="wrap">
+    <div class="chapter-head rv">
+      <div class="ch-meta">
+        <span class="ch-cat">Section Four</span>
+        <span class="ch-badge">4</span>
+      </div>
+      <h2 class="ch-h2">Operational Protocols</h2>
+      <p class="ch-sub">Three structural instruments — solutions generation, stakeholder governance, and team development</p>
+    </div>
+
+    <!-- IV.A — Brainwriting -->
+    <div class="rv" style="margin-bottom:60px;">
+      <div class="proto-header">
+        <div class="proto-num">A</div>
+        <div class="proto-title-block">
+          <div class="proto-cat">Type: Solutions Management</div>
+          <div class="proto-name">6-3-5 Brainwriting</div>
+        </div>
+      </div>
+
+      <div class="asym rv d1">
+        <div>
+          <div class="card-tag">Analysis</div>
+          <p style="font-size:14px;color:var(--g6);line-height:1.75;margin-bottom:16px;">Brainwriting is a protocol for structured idea generation. Its core mechanism is the separation of contribution from discussion: each participant generates ideas independently, in parallel, before any group evaluation begins. This prevents the dominant-voice problem — the well-documented tendency for early verbal contributions to anchor the rest of the group's thinking.</p>
+          <p style="font-size:14px;color:var(--g6);line-height:1.75;margin-bottom:22px;">The numerals in the 6-3-5 variant (6 participants, 3 ideas, 5 minutes) represent one configuration. The structure scales to any team size based on the objective: a homogeneous group for domain refinement, or a cross-functional team for a comprehensive diagnostic.</p>
+
+          <div class="axis-card axis-gold" style="margin-bottom:12px;">
+            <div class="axis-h">Application</div>
+            <p class="axis-p">Brainwriting converts ambiguity into clarity in a documented, auditable format. It moves a team from a broad problem statement to a shared diagnosis, and ends by establishing a unified, defined next action. The result is not a collection of opinions — it's a structured output that the team owns collectively.</p>
+          </div>
+          <div class="axis-card axis-purp">
+            <div class="axis-h">Outcome</div>
+            <p class="axis-p">Securing individual cognitive output before group discussion preserves the diversity of perspectives. Once discussion begins, it is shaped by a documented pool of ideas rather than the first voice in the room. That shift alone changes the quality of the decision substantially.</p>
+          </div>
+        </div>
+
+        <div>
+          <!-- 3-phase flow -->
+          <div class="bw-phases rv d2">
+            <div class="bw-phase-card">
+              <div class="bw-phase-label">Phase I</div>
+              <div class="bw-phase-name">Explore</div>
+              <div class="bw-phase-desc">Silent, parallel idea generation. Each participant documents independently against a shared problem statement.</div>
+              <div class="bw-counters">
+                <div class="bw-ctr">
+                  <div class="bw-ctr-val">X</div>
+                  <div class="bw-ctr-lbl">Team</div>
+                </div>
+                <div class="bw-ctr">
+                  <div class="bw-ctr-val">3+</div>
+                  <div class="bw-ctr-lbl">Ideas</div>
+                </div>
+                <div class="bw-ctr">
+                  <div class="bw-ctr-val">5′</div>
+                  <div class="bw-ctr-lbl">Timer</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bw-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="var(--g4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <div class="bw-phase-card">
+              <div class="bw-phase-label">Phase II</div>
+              <div class="bw-phase-name">Identify</div>
+              <div class="bw-phase-desc">Pattern recognition across contributions. The group identifies convergences, root causes, and the primary diagnostic.</div>
+            </div>
+
+            <div class="bw-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="var(--g4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <div class="bw-phase-card">
+              <div class="bw-phase-label">Phase III</div>
+              <div class="bw-phase-name">Act</div>
+              <div class="bw-phase-desc">The group establishes a single, defined next action. This step converts the diagnosis into an operational commitment.</div>
+            </div>
+          </div>
+
+          <!-- Visualization mini-board -->
+          <div class="bw-viz rv d3">
+            <div class="bw-viz-title">Session Visualization — Phase I Example</div>
+            <div class="bw-viz-title" style="color:var(--g5);font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;margin-bottom:12px;margin-top:-8px;">Premise: "The mobile app feels slow and looks outdated."</div>
+            <div class="bw-cards">
+              <div class="bw-card-item">
+                <div class="bw-card-role">Product</div>
+                <div class="bw-card-text">Reduce feature exposure to 3 primary actions. Current clutter maps to low discovery rates.</div>
+                <div class="bw-card-tag">→ @Marketing</div>
+              </div>
+              <div class="bw-card-item">
+                <div class="bw-card-role">Engineering</div>
+                <div class="bw-card-text">Legacy assets are causing render bloat. Lighter component architecture should reduce load times.</div>
+                <div class="bw-card-tag">→ @UI</div>
+              </div>
+              <div class="bw-card-item">
+                <div class="bw-card-role">Design</div>
+                <div class="bw-card-text">A design system refresh addresses both surface and performance. This links the two problems structurally.</div>
+                <div class="bw-card-tag">→ @All</div>
+              </div>
+              <div class="bw-card-item">
+                <div class="bw-card-role">Marketing</div>
+                <div class="bw-card-text">A "What's New" onboarding modal signals activity without requiring a redesign. Faster time-to-value.</div>
+                <div class="bw-card-tag">→ @Engineering</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+              <div style="background:var(--black);border:1px solid var(--g3);border-radius:var(--r-sm);padding:12px;">
+                <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:var(--gold);margin-bottom:4px;">Phase II · Identify</div>
+                <p style="font-size:11px;color:var(--g6);line-height:1.5;">Outdated component architecture is the probable root cause of both performance and visual issues.</p>
+              </div>
+              <div style="background:var(--black);border:1px solid var(--g3);border-radius:var(--r-sm);padding:12px;">
+                <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:var(--gold);margin-bottom:4px;">Phase III · Act</div>
+                <p style="font-size:11px;color:var(--g6);line-height:1.5;">Assess feasibility of a component-level redesign that resolves both the performance and UX bottleneck simultaneously.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="sep rv">
+
+    <!-- IV.B — Mendelow -->
+    <div class="rv" style="margin-top:56px;margin-bottom:60px;">
+      <div class="proto-header">
+        <div class="proto-num">B</div>
+        <div class="proto-title-block">
+          <div class="proto-cat">Type: Stakeholder Governance</div>
+          <div class="proto-name">Mendelow Influence Matrix</div>
+        </div>
+      </div>
+
+      <div class="asym rv d1">
+        <div>
+          <div class="card-tag">Analysis</div>
+          <p style="font-size:14px;color:var(--g6);line-height:1.75;margin-bottom:16px;">The Mendelow Matrix maps stakeholders onto a coordinate space defined by Authority (resource and decision control) and Interest (operational impact). The position determines the engagement protocol — not the stakeholder's perceived importance, but their actual structural weight in any given decision.</p>
+          <p style="font-size:14px;color:var(--g6);line-height:1.75;margin-bottom:22px;">What makes this framework operationally valuable is the pre-emptive classification. Categorizing stakeholder needs before a decision is in motion prevents late-stage interference. It protects development velocity by eliminating the conditions that produce uncoordinated feedback loops.</p>
+
+          <div class="axis-card axis-gold" style="margin-bottom:12px;">
+            <div class="axis-h">Application</div>
+            <p class="axis-p">Each quadrant maps to a specific engagement protocol: Co-Creation for high-authority, high-interest actors (the decision-makers who also care); Assurance for approvers who hold resource veto power but have limited operational stake; Leverage for advocates who drive adoption from within; and Monitor for peripheral stakeholders.</p>
+          </div>
+          <div class="axis-card axis-purp">
+            <div class="axis-h">Outcome</div>
+            <p class="axis-p">Establishing these boundaries creates a stable governance model. When stakeholders receive the right type of engagement — not more, not less — the team operates with authorized autonomy. Friction points are neutralized before they become delivery blockers.</p>
+          </div>
+        </div>
+
+        <!-- Mendelow matrix -->
+        <div class="rv d2">
+          <div class="mend-wrap">
+            <div class="mend-y-label">Authority — Resource Control →</div>
+            <div class="mend-matrix-col">
+              <!-- Top row (High Authority) -->
+              <div class="mend-row">
+                <div class="mend-cell">
+                  <div class="mend-cell-type">High Authority · Low Interest</div>
+                  <div class="mend-cell-name">Utility Approver</div>
+                  <div class="mend-cell-example">e.g. CFO, Legal Lead</div>
+                  <span class="mend-proto-badge">
+                    <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="2" fill="currentColor"/></svg>
+                    Assurance
+                  </span>
+                  <p class="mend-directive">Emphasize risk mitigation. Provide structured evidence to secure ratification without drawing them into daily decisions.</p>
+                </div>
+                <div class="mend-cell" style="border-color:rgba(206,165,78,0.3);background:rgba(206,165,78,0.03);">
+                  <div class="mend-cell-type">High Authority · High Interest</div>
+                  <div class="mend-cell-name">Strategic Partner</div>
+                  <div class="mend-cell-example">e.g. CTO, VP Engineering</div>
+                  <span class="mend-proto-badge" style="border-color:rgba(206,165,78,0.4);color:var(--gold);">
+                    <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="2" fill="currentColor"/></svg>
+                    Co-Creation
+                  </span>
+                  <p class="mend-directive">Share structural ownership. Involving them in shaping decisions prevents downstream vetoes and creates alignment at source.</p>
+                </div>
+              </div>
+              <!-- Bottom row (Low Authority) -->
+              <div class="mend-row">
+                <div class="mend-cell">
+                  <div class="mend-cell-type">Low Authority · Low Interest</div>
+                  <div class="mend-cell-name">Observer</div>
+                  <div class="mend-cell-example">e.g. General Staff</div>
+                  <span class="mend-proto-badge">
+                    <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="2" fill="currentColor"/></svg>
+                    Monitor
+                  </span>
+                  <p class="mend-directive">Maintain standardized visibility. Keep them informed without consuming engagement capacity that belongs elsewhere.</p>
+                </div>
+                <div class="mend-cell">
+                  <div class="mend-cell-type">Low Authority · High Interest</div>
+                  <div class="mend-cell-name">Advocate</div>
+                  <div class="mend-cell-example">e.g. Sales Lead, CS Head</div>
+                  <span class="mend-proto-badge">
+                    <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="2" fill="currentColor"/></svg>
+                    Leverage
+                  </span>
+                  <p class="mend-directive">Empower with context and rationale. Advocates drive grassroots adoption. Their alignment converts directives into culture.</p>
+                </div>
+              </div>
+              <!-- X-axis label -->
+              <div style="text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--g6);margin-top:8px;">Interest — Operational Impact →</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="sep rv">
+
+    <!-- IV.C — Hoffman -->
+    <div class="rv" style="margin-top:56px;">
+      <div class="proto-header">
+        <div class="proto-num">C</div>
+        <div class="proto-title-block">
+          <div class="proto-cat">Type: Team Development</div>
+          <div class="proto-name">Hoffman Alliance Framework</div>
+        </div>
+      </div>
+
+      <div class="prose rv d1">
+        <p>The Hoffman protocol structures professional development around finite missions rather than open-ended tenure. The premise is that performance is maximized when an individual's personal ambition is accurately aligned with the organization's needs — and that alignment is achieved through a defined, time-bounded compact between the two.</p>
+        <p>Rather than a standard development plan built around abstract competency targets, the framework anchors growth to a Critical MVP: a specific, strategic deliverable that simultaneously resolves a business constraint and demands the exact skill development the person is pursuing. Success is measured by transformational cycles completed, not tenure.</p>
+      </div>
+
+      <div class="hoffman-layout rv d2">
+        <!-- SVG diagram -->
+        <div class="hoffman-svg-wrap">
+          <svg viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="hoffCenter" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(206,165,78,0.15)"/>
+                <stop offset="100%" stop-color="rgba(206,165,78,0)"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Outer circle -->
+            <circle cx="250" cy="190" r="155" fill="none" stroke="#262626" stroke-width="1.5"/>
+            <!-- Inner circle -->
+            <circle cx="250" cy="190" r="90" fill="none" stroke="#333" stroke-width="1.5"/>
+            <!-- Center zone -->
+            <circle cx="250" cy="190" r="60" fill="url(#hoffCenter)" stroke="rgba(206,165,78,0.3)" stroke-width="1.5"/>
+
+            <!-- Diagonal labels arcs (decorative text) -->
+            <!-- Diagnostic Mapping (upper left arc) -->
+            <path id="diagArc" d="M115 120 Q175 55 250 50" fill="none"/>
+            <text font-size="9" font-weight="700" font-family="Figtree, sans-serif" fill="#555" letter-spacing="0.1em">
+              <textPath href="#diagArc">DIAGNOSTIC MAPPING</textPath>
+            </text>
+
+            <!-- Operational Necessity (upper right arc) -->
+            <path id="opArc" d="M250 50 Q325 55 385 120" fill="none"/>
+            <text font-size="9" font-weight="700" font-family="Figtree, sans-serif" fill="#555" letter-spacing="0.1em">
+              <textPath href="#opArc">OPERATIONAL NECESSITY</textPath>
+            </text>
+
+            <!-- Shared Mission (bottom) -->
+            <path id="missionArc" d="M100 240 Q250 370 400 240" fill="none"/>
+            <text font-size="9" font-weight="700" font-family="Figtree, sans-serif" fill="#555" letter-spacing="0.12em">
+              <textPath href="#missionArc" startOffset="18%">SHARED MISSION</textPath>
+            </text>
+
+            <!-- Left elements: Cognitive Architecture, Technical Competencies -->
+            <g transform="translate(68, 148)">
+              <rect width="76" height="22" rx="4" fill="#1a1a1a" stroke="#333"/>
+              <text x="38" y="15" fill="#aaa" font-size="10" font-weight="600" font-family="Figtree, sans-serif" text-anchor="middle">Cognitive</text>
+            </g>
+            <g transform="translate(68, 174)">
+              <rect width="76" height="22" rx="4" fill="#1a1a1a" stroke="#333"/>
+              <text x="38" y="15" fill="#aaa" font-size="10" font-weight="600" font-family="Figtree, sans-serif" text-anchor="middle">Architecture</text>
+            </g>
+            <g transform="translate(60, 204)">
+              <rect width="88" height="22" rx="4" fill="#1a1a1a" stroke="#333"/>
+              <text x="44" y="15" fill="#aaa" font-size="10" font-weight="600" font-family="Figtree, sans-serif" text-anchor="middle">Technical Skills</text>
+            </g>
+
+            <!-- Arrows pointing inward -->
+            <path d="M148 162 L188 180" fill="none" stroke="#444" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#arrowSmall)"/>
+            <path d="M148 193 L188 195" fill="none" stroke="#444" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#arrowSmall)"/>
+
+            <!-- Right elements: Critical MVP, Business Roadmap -->
+            <g transform="translate(356, 148)">
+              <rect width="76" height="22" rx="4" fill="#1a1a1a" stroke="#333"/>
+              <text x="38" y="15" fill="#aaa" font-size="10" font-weight="600" font-family="Figtree, sans-serif" text-anchor="middle">Critical MVP</text>
+            </g>
+            <g transform="translate(352, 174)">
+              <rect width="84" height="22" rx="4" fill="#1a1a1a" stroke="#333"/>
+              <text x="42" y="15" fill="#aaa" font-size="10" font-weight="600" font-family="Figtree, sans-serif" text-anchor="middle">Business</text>
+            </g>
+            <g transform="translate(352, 196)">
+              <rect width="84" height="22" rx="4" fill="#1a1a1a" stroke="#333"/>
+              <text x="42" y="15" fill="#aaa" font-size="10" font-weight="600" font-family="Figtree, sans-serif" text-anchor="middle">Roadmap</text>
+            </g>
+
+            <!-- Arrows pointing inward from right -->
+            <path d="M352 162 L312 180" fill="none" stroke="#444" stroke-width="1" stroke-dasharray="3 2"/>
+            <path d="M352 193 L312 195" fill="none" stroke="#444" stroke-width="1" stroke-dasharray="3 2"/>
+
+            <!-- Center: Strategic Vector -->
+            <text x="250" y="182" fill="#CEA54E" font-size="13" font-weight="800" font-family="Figtree, sans-serif" text-anchor="middle" letter-spacing="0.04em">Strategic</text>
+            <text x="250" y="199" fill="#CEA54E" font-size="13" font-weight="800" font-family="Figtree, sans-serif" text-anchor="middle" letter-spacing="0.04em">Vector</text>
+            <text x="250" y="220" fill="#888" font-size="9" font-family="Figtree, sans-serif" text-anchor="middle">SV</text>
+
+            <!-- Small bottom arrows for Shared Mission -->
+            <path d="M180 310 L225 250" fill="none" stroke="rgba(206,165,78,0.4)" stroke-width="1.2" marker-end="url(#arrowGold)"/>
+            <path d="M320 310 L275 250" fill="none" stroke="rgba(206,165,78,0.4)" stroke-width="1.2" marker-end="url(#arrowGold)"/>
+
+            <defs>
+              <marker id="arrowSmall" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                <path d="M0 0 L6 3 L0 6 Z" fill="#444"/>
+              </marker>
+              <marker id="arrowGold" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                <path d="M0 0 L6 3 L0 6 Z" fill="rgba(206,165,78,0.5)"/>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+
+        <!-- Right: explanation points -->
+        <div class="hoffman-points">
+          <div class="hoff-point">
+            <div class="hoff-label">Diagnostic Mapping</div>
+            <div class="hoff-h">Cognitive Architecture & Technical Competencies</div>
+            <p class="hoff-p">An honest audit of the individual's current capabilities and cognitive strengths — not their self-reported aspirations, but their actual operational profile. This is the baseline.</p>
+          </div>
+          <div class="hoff-point">
+            <div class="hoff-label">Operational Necessity</div>
+            <div class="hoff-h">Critical MVP & Business Roadmap</div>
+            <p class="hoff-p">The specific deliverable that the organization genuinely needs — one with real strategic stakes. This is what anchors the development plan to something consequential rather than theoretical.</p>
+          </div>
+          <div class="hoff-point" style="border-color:rgba(206,165,78,0.3);background:rgba(206,165,78,0.03);">
+            <div class="hoff-label">The Intersection</div>
+            <div class="hoff-h">Strategic Vector — Shared Mission</div>
+            <p class="hoff-p">When the individual's growth path and the business roadmap share a single critical deliverable, the development plan stops being a management formality and becomes the actual work. The individual gains market value. The organization resolves a constraint. Both outcomes are structural.</p>
+          </div>
+          <div class="hoff-point">
+            <div class="hoff-label">Outcome Shift</div>
+            <div class="hoff-h">Cycles Completed, Not Time Served</div>
+            <p class="hoff-p">Shifting the metric from tenure to transformational cycles completed reframes how both parties evaluate progress. It converts potential friction — competing individual and organizational agendas — into a synchronized trajectory.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ V · BENCHMARK ═══════════ -->
+<section class="chapter" id="outcomes">
+  <div class="wrap">
+    <div class="chapter-head rv">
+      <div class="ch-meta">
+        <span class="ch-cat">Section Five</span>
+        <span class="ch-badge">5</span>
+      </div>
+      <h2 class="ch-h2">Benchmark & Outcomes</h2>
+      <p class="ch-sub">Composite evidence of the systems in practice, benchmarked against industry baselines</p>
+    </div>
+
+    <div class="prose rv">
+      <p>The systems documented in this blueprint were not theoretical. Each one was applied operationally, under real constraints, with real teams and real accountability. What follows is the quantitative and qualitative record — composited per NDA obligations, but accurately representing the scale and relative impact of each outcome.</p>
+    </div>
+
+    <!-- Metric cards -->
+    <div class="bench-grid rv d1">
+
+      <!-- Scale AI -->
+      <div class="bench-card">
+        <div class="bench-org">Scale AI · RLHF Pipeline</div>
+        <div class="bench-val num-up" data-val="+22" data-suffix="%">+22%</div>
+        <div class="bench-metric">Reasoning Benchmark Uplift</div>
+        <div class="bench-baseline">Industry baseline: ~5–8% per post-training iteration</div>
+        <div class="bench-impact">RLHF consolidation pipeline architecture. <strong>Annotation decomposition frameworks</strong> for high-complexity domains contributed a further <strong>−31% task error rate</strong> across the dataset.</div>
+      </div>
+
+      <!-- Scale AI cost -->
+      <div class="bench-card">
+        <div class="bench-org">Scale AI · Annotation Economy</div>
+        <div class="bench-val num-up" data-val="-40" data-suffix="%">−40%</div>
+        <div class="bench-metric">Per-Task Labeling Cost</div>
+        <div class="bench-baseline">Industry baseline: ~10–15% improvement via taxonomy redesign</div>
+        <div class="bench-impact">Expert annotation taxonomy redesign enabling structured reuse. <strong>Scale Rapid taxonomy</strong> scaled annotation reuse across high-complexity labeling tasks significantly reducing unit cost.</div>
+      </div>
+
+      <!-- Traktor KPI -->
+      <div class="bench-card">
+        <div class="bench-org">Traktor · Media Performance</div>
+        <div class="bench-val num-up" data-val="+26" data-suffix="%">+26%</div>
+        <div class="bench-metric">Composite KPI Uplift</div>
+        <div class="bench-baseline">Industry baseline: 2–5% via standard A/B optimization</div>
+        <div class="bench-impact"><strong>Prism taxonomy system</strong> codified 1,000+ creative assets, validating <strong>78% predictive accuracy</strong> in A/B testing cycles — converting creative decisions from subjective to data-governed.</div>
+      </div>
+
+      <!-- Traktor SLA -->
+      <div class="bench-card">
+        <div class="bench-org">Traktor · Operational Cadence</div>
+        <div class="bench-val num-up" data-val="-71" data-suffix="%">−71%</div>
+        <div class="bench-metric">Gap Resolution Time</div>
+        <div class="bench-baseline">Industry baseline: ~20% improvement via standard Agile</div>
+        <div class="bench-impact">SLA Architecture established binary delivery protocols across the creative workflow, eliminating handoff ambiguity and maintaining consistent resolution velocity across all sprint cycles.</div>
+      </div>
+
+      <!-- TOTVS TCO -->
+      <div class="bench-card">
+        <div class="bench-org">TOTVS · T-Cloud Migration</div>
+        <div class="bench-val num-up" data-val="-25" data-suffix="%">−25%</div>
+        <div class="bench-metric">Total Cost of Ownership (TCO)</div>
+        <div class="bench-baseline">Industry baseline: neutral to +10% cost inflation on migrations</div>
+        <div class="bench-impact">Pre-migration audit of legacy architecture identified financial levers early. Strategic sequencing enabled a controlled transition to <strong>predictable OpEx</strong> — positive ROI event within the migration window.</div>
+      </div>
+
+      <!-- TOTVS uptime -->
+      <div class="bench-card">
+        <div class="bench-org">TOTVS · Enterprise Uptime</div>
+        <div class="bench-val" style="font-size:40px;font-weight:800;color:var(--gold);letter-spacing:-0.04em;line-height:1;margin-bottom:6px;">99.9%</div>
+        <div class="bench-metric">Protheus Uptime — Migration Phases</div>
+        <div class="bench-baseline">Industry baseline: 95–98% during active cloud migrations</div>
+        <div class="bench-impact">T-Cloud failover protocol design sustained near-zero downtime across all critical migration phases — directly protecting continuity for enterprise accounts including Volkswagen and Nestlé.</div>
+      </div>
+    </div>
+
+    <!-- OKR governance callout -->
+    <div class="rv d2" style="margin-top:14px;">
+      <div style="background:var(--g1);border:1px solid var(--g3);border-radius:var(--r-md);padding:22px 28px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:4px;">Traktor · OKR Governance</div>
+          <div style="font-size:32px;font-weight:800;color:var(--gold);letter-spacing:-0.03em;line-height:1;">54% → 87%</div>
+          <div style="font-size:13px;color:var(--g7);margin-top:4px;">Quarterly execution rate improvement over 18 months</div>
+        </div>
+        <div style="flex:1;min-width:240px;">
+          <p style="font-size:13px;color:var(--g6);line-height:1.7;">OKR governance was institutionalized across all departments — converting quarterly planning from a reporting exercise into an operational commitment mechanism. The shift from 54% to 87% execution rate over 18 months reflects both the adoption quality and the governance consistency across three functional teams.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="rv d1" style="margin-top:56px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--g6);margin-bottom:24px;">Qualitative Feedback</div>
+      <div class="test-grid">
+
+        <div class="test-card">
+          <div class="test-type">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <circle cx="6.5" cy="4.5" r="2.5" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M1 12c0-3.038 2.462-5.5 5.5-5.5S12 8.962 12 12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+            Leader
+            <span class="test-type-dot"></span>
+            TOTVS
+          </div>
+          <p class="test-quote">"What stands out about Felipe is his ability to see the chaotic big picture and break it down into a clear plan. He bridged the gap between our technical teams and the board effortlessly. I could always count on him to give me the raw truth about our risks, not just what I wanted to hear."</p>
+          <div class="test-person">
+            <div class="test-avatar">MG</div>
+            <div>
+              <div class="test-name">Maria Gomes</div>
+              <div class="test-role">Group Product Manager · TOTVS</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <div class="test-type">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M6.5 1L8.2 4.5H12L9 6.8l1.1 3.5L6.5 8.5 3.9 10.3 5 6.8 2 4.5h3.8L6.5 1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+            </svg>
+            Led
+            <span class="test-type-dot"></span>
+            Traktor
+          </div>
+          <p class="test-quote">"Never had a manager invest so much in my career growth. He actively looked for opportunities to match the project's needs with the specific skills I wanted to learn. The environment he built was demanding but incredibly fair. I always knew exactly what was expected of me."</p>
+          <div class="test-person">
+            <div class="test-avatar">RR</div>
+            <div>
+              <div class="test-name">Rafael Reis</div>
+              <div class="test-role">Front-End Developer · Traktor</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-body">
+      <div>
+        <div class="footer-logo">LYNDEN</div>
+        <div class="footer-tagline">Professional Portfolio</div>
+        <div class="footer-email">felipelynden@gmail.com</div>
+      </div>
+      <div>
+        <div class="ft-col-h">Shortcuts</div>
+        <ul class="ft-links">
+          <li><a href="https://felipelynden.com/#cases">Case Studies</a></li>
+          <li><a href="https://felipelynden.com/#principles">Core Principles</a></li>
+          <li><a href="https://felipelynden.com/#career">Career Highlights</a></li>
+          <li><a href="#" id="js-top">↩ Back to the top</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-h">Pages</div>
+        <ul class="ft-links">
+          <li><a href="https://felipelynden.com">Home</a></li>
+          <li><a href="https://felipelynden.com/behind-the-work">Behind the Work</a></li>
+          <li><a href="https://felipelynden.com/blog">Blog</a></li>
+          <li><a href="https://felipelynden.com/contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span>Website by Felipe Lynden</span>
+      <span>Germany · 2026</span>
+      <span>© All rights reserved</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+/* ── Progress bar ── */
+const bar = document.getElementById('progress-bar');
+function updateBar() {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  bar.style.width = pct + '%';
+}
+window.addEventListener('scroll', updateBar, { passive: true });
+
+/* ── Reveal on scroll ── */
+const revObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('on');
+      revObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.rv').forEach(el => revObs.observe(el));
+
+/* ── Back to top ── */
+document.getElementById('js-top').addEventListener('click', e => {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ── Timeline activation ── */
+const tlObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      // Light up rail
+      const fill = document.getElementById('tl-fill');
+      if (fill) setTimeout(() => fill.style.width = '100%', 200);
+
+      // Light up nodes staggered
+      [0,1,2,3].forEach(i => {
+        setTimeout(() => {
+          const node = document.getElementById('tl-n' + i);
+          if (node) node.classList.add('lit');
+        }, 300 + i * 220);
+      });
+
+      // Reveal cards staggered
+      document.querySelectorAll('.tl-card').forEach((card, i) => {
+        const delay = parseInt(card.dataset.delay || i) * 180 + 400;
+        setTimeout(() => card.classList.add('on'), delay);
+      });
+
+      tlObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+const tlWrap = document.querySelector('.tl-wrap');
+if (tlWrap) tlObs.observe(tlWrap);
+
+/* ── SVG arch draw animation ── */
+const archObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.arch-draw').forEach(el => {
+        el.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1) 0.3s';
+        el.style.strokeDashoffset = '0';
+      });
+      e.target.querySelectorAll('.arch-draw-2').forEach(el => {
+        el.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1) 0.6s';
+        el.style.strokeDashoffset = '0';
+      });
+      archObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.jung-svg-wrap').forEach(el => archObs.observe(el));
+
+/* ── Count-up for benchmark values ── */
+function countUp(el, to, prefix, suffix, duration) {
+  const isNeg = to < 0;
+  const abs = Math.abs(to);
+  const start = performance.now();
+  (function tick(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    const cur = Math.round(ease * abs);
+    el.textContent = (isNeg ? '−' : '+') + cur + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+  })(performance.now());
+}
+
+const numObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const val = parseFloat(e.target.dataset.val);
+      const suffix = e.target.dataset.suffix || '%';
+      if (!isNaN(val)) countUp(e.target, val, '', suffix, 1100);
+      numObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.6 });
+
+document.querySelectorAll('.num-up[data-val]').forEach(el => numObs.observe(el));
+</script>
+</body>
+</html>
