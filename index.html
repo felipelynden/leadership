@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leadership Model — Felipe Lynden</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<style>
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ─── TOKENS ─── */
+:root {
+  --black:     #000000;
+  --white:     #ffffff;
+  --g1:        #111111;
+  --g2:        #1a1a1a;
+  --g3:        #262626;
+  --g4:        #333333;
+  --g5:        #5c5c5c;
+  --g6:        #888888;
+  --g7:        #aaaaaa;
+  --g8:        #cccccc;
+  --gold:      #CEA54E;
+  --gold-dim:  rgba(206,165,78,0.12);
+  --gold-low:  rgba(206,165,78,0.06);
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 20px;
+  --max: 1160px;
+}
+body {
+  font-family: 'Figtree', sans-serif;
+  background: var(--black); color: var(--white);
+  line-height: 1.6; -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ─── PROGRESS BAR ─── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+  background: var(--gold); z-index: 300; transition: width 0.1s linear;
+}
+
+/* ─── LAYOUT ─── */
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 48px; }
+@media(max-width:640px){ .wrap { padding: 0 24px; } }
+
+/* ─── HEADER ─── */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 56px; display: flex; align-items: center;
+  background: rgba(0,0,0,0.82); backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--g3);
+}
+.header-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 48px;
+  width: 100%; display: flex; align-items: center;
+}
+.back-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
+  color: var(--white); transition: opacity 0.18s;
+}
+.back-link:hover { opacity: 0.6; }
+
+/* ─── REVEAL ─── */
+.rv { transition: opacity 0.55s ease, transform 0.55s ease; }
+.rv.js-hidden { opacity: 0; transform: translateY(22px); }
+.rv.on { opacity: 1 !important; transform: translateY(0) !important; }
+.d1 { transition-delay: 0.08s; }
+.d2 { transition-delay: 0.16s; }
+.d3 { transition-delay: 0.24s; }
+.d4 { transition-delay: 0.34s; }
+.d5 { transition-delay: 0.44s; }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 120px 48px 52px; overflow: hidden; text-align: center;
+}
+.hero-disclaimer-wrap {
+  position: relative; z-index: 2;
+  width: 100%; max-width: var(--max);
+  margin-top: 56px; text-align: left;
+}
+#hero-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  opacity: 0.22; pointer-events: none;
+}
+.hero-glow {
+  position: absolute; bottom: -8%; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 340px; pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(206,165,78,0.06) 0%, transparent 70%);
+}
+.hero-content { position: relative; z-index: 2; max-width: 760px; }
+.hero-context {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 22px;
+}
+.hero-dot { color: var(--g5); }
+.hero-h1 {
+  font-size: clamp(52px, 9vw, 100px);
+  font-weight: 800; letter-spacing: -0.035em;
+  line-height: 1.02; margin-bottom: 22px;
+}
+.hero-sub {
+  font-size: clamp(15px, 1.8vw, 18px); color: var(--g7);
+  max-width: 560px; margin: 0 auto 44px;
+  line-height: 1.65; font-weight: 400;
+}
+.hero-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border: 1px solid var(--g3);
+  border-radius: 100px; font-size: 13px; font-weight: 500;
+  color: var(--g7); background: var(--g1);
+}
+.pill .v { color: var(--gold); font-weight: 700; }
+
+/* ─── DISCLAIMER ─── */
+.disclaimer-box {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-md); padding: 18px 22px;
+}
+.disclaimer-icon { flex-shrink: 0; margin-top: 1px; color: var(--gold); }
+.dis-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--gold); margin-bottom: 4px;
+}
+.dis-text { font-size: 12px; color: var(--g6); line-height: 1.65; }
+
+/* ─── TOC ─── */
+.toc-section { padding: 72px 0; border-top: 1px solid var(--g3); }
+.toc-label {
+  display: inline-flex; padding: 5px 13px;
+  border: 1px solid var(--g4); border-radius: 100px;
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--g6); margin-bottom: 36px;
+}
+.toc-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--g3);
+  border: 1px solid var(--g3); border-radius: var(--r-xl); overflow: hidden;
+}
+.toc-item {
+  background: var(--black); padding: 28px 30px;
+  display: flex; gap: 18px; align-items: flex-start;
+  transition: background 0.2s;
+}
+.toc-item:hover { background: var(--g1); }
+.toc-n {
+  font-size: 10px; font-weight: 800; color: var(--gold);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding-top: 3px; min-width: 22px;
+}
+.toc-title { font-size: 16px; font-weight: 600; margin-bottom: 5px; }
+.toc-desc { font-size: 13px; color: var(--g6); line-height: 1.5; }
+
+/* ─── CHAPTER ─── */
+.chapter { padding: 80px 0; border-top: 1px solid var(--g3); }
+.chapter-head { margin-bottom: 48px; }
+.ch-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.ch-cat {
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.09em; color: var(--g6);
+}
+.ch-badge {
+  width: 26px; height: 26px; background: var(--gold); color: var(--black);
+  font-size: 11px; font-weight: 800; border-radius: 6px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.ch-h2 {
+  font-size: clamp(30px, 4.5vw, 52px); font-weight: 700;
+  letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 10px;
+}
+.ch-sub { font-size: 14px; color: var(--g6); font-style: italic; }
+
+/* ─── PROSE ─── */
+.prose { max-width: 800px; margin-bottom: 40px; }
+.prose p { font-size: 15px; color: var(--g7); line-height: 1.78; margin-bottom: 16px; }
+.prose p:last-child { margin-bottom: 0; }
+
+/* ─── CARD ─── */
+.card { background: var(--g1); border: 1px solid var(--g3); border-radius: var(--r-md); padding: 26px; }
+.card-tag {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.09em; color: var(--g6);
+  border: 1px solid var(--g4); border-radius: 100px; padding: 3px 10px; margin-bottom: 14px;
+}
+.card-h3 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+.card-p { font-size: 13px; color: var(--g6); line-height: 1.7; }
+
+/* ─── GRIDS ─── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.asym { grid-template-columns: 1fr 1.1fr; gap: 44px; align-items: start; }
+
+/* ─── TIMELINE ─── */
+.timeline-wrap {
+  position: relative; margin-top: 48px;
+  padding: 0; overflow: hidden;
+}
+.timeline-rail {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--g3);
+  border: 1px solid var(--g3); border-radius: var(--r-xl); overflow: hidden;
+}
+.timeline-col {
+  background: var(--g1); padding: 32px 28px;
+  position: relative;
+}
+.timeline-col:nth-child(even) { background: var(--black); }
+.t-year-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 22px;
+}
+.t-year {
+  font-size: 11px; font-weight: 800; color: var(--gold);
+  letter-spacing: 0.06em;
+}
+.t-company {
+  font-size: 13px; font-weight: 700; color: var(--white);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.t-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; margin-bottom: 18px; }
+.t-tag {
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.09em; padding: 3px 8px;
+  border: 1px solid var(--g4); border-radius: 4px; color: var(--g6);
+}
+.t-tag.gold { border-color: rgba(206,165,78,0.3); color: var(--gold); }
+.t-section-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--g5); margin-bottom: 8px; margin-top: 16px;
+}
+.t-list {
+  list-style: none; display: flex; flex-direction: column; gap: 5px;
+}
+.t-list li {
+  font-size: 12px; color: var(--g7); line-height: 1.5;
+  padding-left: 10px; position: relative;
+}
+.t-list li::before {
+  content: ''; position: absolute; left: 0; top: 7px;
+  width: 4px; height: 4px; border-radius: 50%; background: var(--gold); opacity: 0.5;
+}
+.t-divider { height: 1px; background: var(--g3); margin: 14px 0; }
+.timeline-premise {
+  margin-bottom: 36px; max-width: 720px;
+}
+.premise-icon { color: var(--gold); margin-right: 8px; }
+
+/* ─── ORCHESTRA ─── */
+.orch-section {
+  margin-top: 48px;
+  background: var(--black); border: 1px solid var(--g3);
+  border-radius: var(--r-xl); overflow: hidden;
+}
+.orch-header {
+  padding: 56px 52px 44px;
+  background: var(--g1); border-bottom: 1px solid var(--g3);
+  text-align: center; position: relative; overflow: hidden;
+}
+.orch-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 50% 30%, rgba(206,165,78,0.05) 0%, transparent 70%);
+}
+.orch-title {
+  font-size: clamp(24px,3.5vw,40px); font-weight: 700; letter-spacing: -0.02em;
+  position: relative; z-index: 2; margin-bottom: 12px;
+}
+.orch-sub {
+  font-size: 14px; color: var(--g6); position: relative; z-index: 2;
+  max-width: 500px; margin: 0 auto;
+}
+
+/* Three pillar cards */
+.orch-pillars {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px; background: var(--g3);
+}
+.orch-pillar {
+  background: var(--black); padding: 32px 28px;
+}
+.orch-pillar:nth-child(2) { background: var(--g1); }
+.pillar-icon-wrap {
+  width: 40px; height: 40px; border-radius: 10px;
+  border: 1px solid var(--g3); display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px; color: var(--gold);
+}
+.pillar-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.pillar-role { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 12px; }
+.pillar-p { font-size: 13px; color: var(--g6); line-height: 1.7; }
+.orch-bottom {
+  padding: 32px 52px;
+  border-top: 1px solid var(--g3);
+}
+.orch-insight {
+  font-size: 15px; color: var(--g7); line-height: 1.75;
+  max-width: 740px; margin: 0 auto; text-align: center;
+}
+.orch-insight strong { color: var(--white); font-weight: 600; }
+
+/* ─── PSYCHOMETRIC CANVAS ─── */
+.psych-tabs {
+  display: flex; gap: 1px; background: var(--g3);
+  border: 1px solid var(--g3); border-radius: var(--r-lg); overflow: hidden;
+  margin-bottom: 24px;
+}
+.psych-tab {
+  flex: 1; padding: 14px 20px; text-align: center;
+  background: var(--g1); font-size: 12px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--g6);
+  cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+.psych-tab.active { background: var(--black); color: var(--gold); }
+.psych-panel { display: none; }
+.psych-panel.active { display: block; }
+
+/* Jungian semicircle */
+.jungian-wrap {
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-xl); overflow: hidden;
+}
+.jungian-top {
+  padding: 40px 44px 36px;
+  border-bottom: 1px solid var(--g3);
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; align-items: start;
+}
+.jungian-canvas-wrap { display: flex; justify-content: center; }
+.jungian-axis-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--g6); margin-bottom: 6px;
+}
+.jungian-axis-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+.jungian-axis-p { font-size: 12px; color: var(--g6); line-height: 1.65; }
+.jungian-micro-h { font-size: 11px; font-weight: 700; margin-top: 16px; margin-bottom: 5px; color: var(--g8); }
+.jungian-micro-p { font-size: 11px; color: var(--g5); line-height: 1.6; }
+.jungian-bottom {
+  padding: 28px 44px;
+  display: flex; align-items: center; gap: 14px;
+}
+.jungian-macro-icon { color: var(--gold); flex-shrink: 0; }
+.jungian-macro-h { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.jungian-macro-p { font-size: 12px; color: var(--g6); line-height: 1.6; }
+/* Functions bar */
+.func-bar {
+  display: flex; gap: 3px; margin-top: 16px;
+}
+.func-item {
+  flex: 1; padding: 7px 4px; text-align: center;
+  background: var(--g2); border: 1px solid var(--g3);
+  border-radius: 5px; font-size: 10px; font-weight: 700; color: var(--g6);
+  transition: background 0.2s, color 0.2s;
+}
+.func-item:hover { background: var(--gold-dim); color: var(--gold); }
+
+/* FFM radar */
+.ffm-wrap {
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-xl); overflow: hidden;
+}
+.ffm-top {
+  padding: 40px 44px 36px;
+  border-bottom: 1px solid var(--g3);
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; align-items: start;
+}
+.ffm-bottom {
+  padding: 28px 44px;
+  display: flex; align-items: center; gap: 14px;
+}
+
+/* ─── PROTOCOLS ─── */
+.protocol-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 32px; }
+.protocol-card {
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-xl); overflow: hidden;
+}
+.protocol-head {
+  padding: 28px 32px;
+  border-bottom: 1px solid var(--g3);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;
+}
+.protocol-name { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.protocol-type { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 12px; }
+.protocol-p { font-size: 13px; color: var(--g6); line-height: 1.7; }
+.protocol-sub-h { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--g6); margin-bottom: 6px; margin-top: 16px; }
+.protocol-sub-p { font-size: 12px; color: var(--g5); line-height: 1.6; }
+.protocol-vis { padding: 28px 32px; }
+.vis-label {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.09em; color: var(--g6); margin-bottom: 20px;
+}
+
+/* Brainwriting viz */
+.bw-phases { display: flex; flex-direction: column; gap: 12px; }
+.bw-phase-row { display: flex; align-items: flex-start; gap: 14px; }
+.bw-phase-badge {
+  font-size: 9px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.09em; padding: 4px 10px;
+  border: 1px solid var(--g4); border-radius: 4px; color: var(--g5);
+  white-space: nowrap; margin-top: 2px;
+}
+.bw-phase-h { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.bw-phase-p { font-size: 12px; color: var(--g6); line-height: 1.55; }
+.bw-card-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+  margin: 12px 0;
+}
+.bw-card {
+  background: var(--g3); border-radius: var(--r-sm); padding: 12px;
+  font-size: 11px; color: var(--g7); line-height: 1.45;
+}
+.bw-card-role { font-size: 10px; font-weight: 700; color: var(--gold); margin-bottom: 5px; }
+.bw-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.bw-meta-item { font-size: 10px; color: var(--g5); }
+.bw-meta-val { font-size: 14px; font-weight: 700; color: var(--white); display: block; }
+
+/* Mendelow matrix */
+.mend-matrix {
+  display: grid; grid-template-columns: 28px 1fr 1fr;
+  grid-template-rows: 1fr 1fr 28px; gap: 2px;
+  height: 240px;
+}
+.mend-cell {
+  background: var(--g2); border: 1px solid var(--g3); border-radius: var(--r-sm);
+  padding: 14px; display: flex; flex-direction: column; justify-content: flex-start;
+}
+.mend-axis-v {
+  grid-row: 1 / 3; grid-column: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--g5); writing-mode: vertical-rl; transform: rotate(180deg);
+}
+.mend-axis-h {
+  grid-column: 2 / 4; grid-row: 3;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--g5);
+}
+.mend-cell-title { font-size: 11px; font-weight: 700; margin-bottom: 5px; color: var(--white); }
+.mend-cell-p { font-size: 10px; color: var(--g5); line-height: 1.5; }
+.mend-item { font-size: 10px; color: var(--g6); margin-bottom: 3px; display: flex; gap: 5px; }
+.mend-item::before { content: '—'; color: var(--g5); flex-shrink: 0; }
+.mend-tag {
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; padding: 2px 7px;
+  border: 1px solid var(--g4); border-radius: 3px; color: var(--g5);
+  margin-bottom: 8px; display: inline-block;
+}
+.mend-tag.gold { border-color: rgba(206,165,78,0.3); color: var(--gold); }
+
+/* Hoffman diagram */
+.hoff-diagram {
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px 0;
+}
+.hoff-circle-outer {
+  width: 240px; height: 240px; border-radius: 50%;
+  border: 1px solid var(--g3); background: var(--g2);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.hoff-circle-inner {
+  width: 110px; height: 110px; border-radius: 50%;
+  background: var(--g1); border: 1px solid rgba(206,165,78,0.3);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; position: relative; z-index: 2;
+}
+.hoff-inner-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); }
+.hoff-inner-sub { font-size: 9px; color: var(--g6); margin-top: 3px; line-height: 1.4; }
+.hoff-node {
+  position: absolute; display: flex; flex-direction: column; align-items: center; gap: 5px;
+}
+.hoff-node-icon { font-size: 14px; color: var(--g6); }
+.hoff-node-label { font-size: 10px; font-weight: 700; color: var(--g7); white-space: nowrap; }
+.hoff-node-sub { font-size: 9px; color: var(--g5); white-space: nowrap; }
+.hoff-bottom-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--g5); text-align: center; margin-top: 10px;
+}
+.hoff-right { margin-left: 40px; flex: 1; }
+
+/* ─── KPI STRIP ─── */
+.kpi-strip {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: var(--g3);
+  border: 1px solid var(--g3); border-radius: var(--r-xl);
+  overflow: hidden; margin-top: 52px;
+}
+.kpi-block { background: var(--g1); padding: 28px 24px; }
+.kpi-block:nth-child(even) { background: var(--black); }
+.kpi-big { font-size: 36px; font-weight: 800; color: var(--gold); letter-spacing: -0.02em; line-height: 1; margin-bottom: 6px; }
+.kpi-lbl { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.kpi-desc { font-size: 12px; color: var(--g5); line-height: 1.55; }
+.kpi-baseline { font-size: 10px; color: var(--g5); font-style: italic; margin-top: 6px; }
+
+/* ─── BENCHMARK ─── */
+.bench-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+.bench-card {
+  background: var(--g1); border: 1px solid var(--g3);
+  border-radius: var(--r-md); padding: 26px; position: relative; overflow: hidden;
+}
+.bench-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold); opacity: 0.55;
+}
+.bench-company { font-size: 15px; font-weight: 700; margin-bottom: 14px; }
+.bench-metric-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 3px; }
+.bench-metric-val { font-size: 26px; font-weight: 800; color: var(--gold); letter-spacing: -0.03em; }
+.bench-metric-lbl { font-size: 12px; color: var(--g6); font-weight: 500; }
+.bench-baseline { font-size: 10px; color: var(--g5); font-style: italic; margin-bottom: 10px; }
+.bench-impact {
+  display: inline-flex; padding: 3px 10px;
+  border: 1px solid rgba(206,165,78,0.25); border-radius: 4px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--gold); margin-bottom: 14px;
+}
+.bench-p { font-size: 12px; color: var(--g6); line-height: 1.65; }
+
+/* Qualitative feedback */
+.feedback-wrap { margin-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+.feedback-card {
+  background: var(--g1); border: 1px solid var(--g3); border-radius: var(--r-md);
+  padding: 24px; display: flex; gap: 18px; align-items: flex-start;
+}
+.feed-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--g3); display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: var(--gold); flex-shrink: 0;
+}
+.feed-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.feed-meta { font-size: 11px; color: var(--g5); margin-bottom: 10px; }
+.feed-quote { font-size: 13px; color: var(--g7); line-height: 1.7; font-style: italic; }
+.feed-tags { display: flex; gap: 6px; margin-top: 10px; }
+.feed-tag {
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; padding: 3px 8px;
+  border: 1px solid var(--g4); border-radius: 3px; color: var(--g5);
+}
+
+/* ─── FOOTER ─── */
+footer { background: #080808; border-top: 1px solid var(--g3); margin-top: 80px; }
+.footer-body { padding: 56px 0 44px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; }
+.ft-links--top { margin-top: 24px; }
+.footer-logo { font-size: 20px; font-weight: 800; letter-spacing: 0.04em; margin-bottom: 6px; }
+.footer-tagline { font-size: 12px; color: var(--g6); margin-bottom: 12px; }
+.footer-email { font-size: 13px; color: var(--g7); }
+.ft-col-h { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--g6); margin-bottom: 14px; }
+.ft-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.ft-links a { font-size: 13px; color: var(--g7); transition: color 0.18s; }
+.ft-links a:hover { color: var(--white); }
+.footer-bar {
+  border-top: 1px solid var(--g3); padding: 18px 0;
+  display: flex; justify-content: space-between; font-size: 11px; color: var(--g6);
+}
+.back-top-btn { cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: color 0.18s; }
+.back-top-btn:hover { color: var(--gold); }
+
+/* ─── ANIMATING BAR ─── */
+.bar-anim {
+  height: 4px; border-radius: 2px; background: var(--g3);
+  position: relative; overflow: hidden; margin-top: 8px;
+}
+.bar-anim-fill {
+  position: absolute; inset-block: 0; left: 0;
+  background: linear-gradient(90deg, var(--gold), rgba(206,165,78,0.5));
+  border-radius: 2px; width: 0%;
+  transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ─── SVG ANIMATIONS ─── */
+@keyframes orbitFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes pulseGold {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+@keyframes rotate360 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1000px){
+  .timeline-rail { grid-template-columns: 1fr 1fr; }
+  .orch-pillars { grid-template-columns: 1fr; }
+  .jungian-top { grid-template-columns: 1fr; }
+  .ffm-top { grid-template-columns: 1fr; }
+  .mend-matrix { height: auto; }
+  .bench-grid { grid-template-columns: 1fr; }
+  .footer-body { grid-template-columns: 1fr; gap: 32px; }
+}
+@media(max-width:768px){
+  .toc-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .three-col { grid-template-columns: 1fr; }
+  .bw-card-grid { grid-template-columns: 1fr 1fr; }
+  .kpi-strip { grid-template-columns: 1fr 1fr; }
+  .timeline-rail { grid-template-columns: 1fr; }
+  .orch-header { padding: 40px 28px 32px; }
+  .orch-bottom { padding: 24px 28px; }
+  .protocol-head { grid-template-columns: 1fr; gap: 24px; }
+  .header-inner { padding: 0 24px; }
+}
+@media(max-width:540px){
+  .hero { padding: 108px 24px 64px; }
+  .chapter { padding: 56px 0; }
+  .kpi-strip { grid-template-columns: 1fr; }
+  .bw-card-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- ─── HEADER ─── -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="https://felipelynden.com" class="back-link">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+        <path d="M9.5 12L5 7.5 9.5 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      LYNDEN
+    </a>
+  </div>
+</header>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-content wrap">
+    <div class="hero-context rv">
+      LYNDEN <span class="hero-dot">·</span> PORTFOLIO
+    </div>
+    <h1 class="hero-h1 rv d1">Leadership<br>Model</h1>
+    <p class="hero-sub rv d2">
+      A structured view of how I build, organize, and develop high-performing teams — from the cognitive frameworks I use to the field-tested protocols I deploy across every leadership context.
+    </p>
+    <div class="hero-pills rv d3">
+      <div class="pill">10-Year Operating Track</div>
+      <div class="pill">Teams Managed <span class="v">12 – 15</span></div>
+      <div class="pill">OKR Execution <span class="v">+33pts</span></div>
+      <div class="pill">Applied Psychometrics</div>
+      <div class="pill">Field-Tested Protocols</div>
+    </div>
+    <div class="hero-disclaimer-wrap rv d4">
+      <div class="disclaimer-box">
+        <svg class="disclaimer-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M9 1.5L1.5 6v6l7.5 4.5 7.5-4.5V6L9 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+          <path d="M9 8.5V6M9 11h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div class="dis-label">Transparency Notice</div>
+          <p class="dis-text">This document is a synthesis of applied professional experience. Specific metrics, timelines, and stakeholder identities are presented as composites — this protects all proprietary information in accordance with my NDA obligations while illustrating the scope and nature of my work. All external market data is sourced from public records.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TABLE OF CONTENTS ─── -->
+<section class="toc-section">
+  <div class="wrap">
+    <div class="toc-label rv">Structure</div>
+    <div class="toc-grid rv d1">
+      <div class="toc-item">
+        <div class="toc-n">I</div>
+        <div>
+          <div class="toc-title">Timeline</div>
+          <div class="toc-desc">Four operational environments, four distinct leadership contexts, and the methodologies applied in each.</div>
+        </div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-n">II</div>
+        <div>
+          <div class="toc-title">Principle</div>
+          <div class="toc-desc">My core model for how a high-performing team operates — the orchestral framework applied to organizational execution.</div>
+        </div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-n">III</div>
+        <div>
+          <div class="toc-title">Psychometrics</div>
+          <div class="toc-desc">The Jungian cognitive architecture and the Five Factor Model — how I diagnose individuals to build the right team structure.</div>
+        </div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-n">IV</div>
+        <div>
+          <div class="toc-title">Protocols</div>
+          <div class="toc-desc">Three field-tested frameworks for ideation management, stakeholder alignment, and individual development planning.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     I · TIMELINE
+══════════════════════════════════ -->
+<section class="chapter" id="timeline">
+  <div class="wrap">
+    <div class="chapter-head rv">
+      <div class="ch-meta">
+        <span class="ch-cat">Applied Methodologies</span>
+        <span class="ch-badge">1</span>
+      </div>
+      <h2 class="ch-h2">Timeline</h2>
+      <p class="ch-sub">A decade of operational contexts, each demanding a distinct approach</p>
+    </div>
+
+    <div class="prose rv">
+      <p>No two operational environments are the same — and a methodology that performs well inside a growing MarTech startup is not the same methodology that governs a cloud migration program at a publicly listed enterprise. Adapting to the nuances of the business and the people involved is the foundational principle. Every context offers a distinct set of constraints and opportunities that shape which tools are selected and which learned behaviours are foregrounded.</p>
+    </div>
+
+    <div class="timeline-wrap rv d1">
+      <div class="timeline-rail">
+
+        <!-- HEWYSA 2015 -->
+        <div class="timeline-col">
+          <div class="t-year-row">
+            <div class="t-year">2015</div>
+            <div class="t-company">Hewysa</div>
+          </div>
+          <div class="t-tags">
+            <span class="t-tag gold">HR Tech</span>
+            <span class="t-tag">SaaS</span>
+          </div>
+          <div class="t-section-label">Core Methodologies</div>
+          <ul class="t-list">
+            <li>BPM (Business Process Management)</li>
+            <li>CBM (Competency Management)</li>
+            <li>Agile Frameworks: Scrum</li>
+            <li>CRM & Go-to-Market</li>
+          </ul>
+          <div class="t-divider"></div>
+          <div class="t-section-label">Core Applications</div>
+          <ul class="t-list">
+            <li>PCCS: Proprietary HRMS</li>
+            <li>Process Modeling: Bizagi</li>
+            <li>Project Management: Jira</li>
+            <li>BI Analytics: QlikView</li>
+          </ul>
+        </div>
+
+        <!-- TOTVS 2016 -->
+        <div class="timeline-col">
+          <div class="t-year-row">
+            <div class="t-year">2016</div>
+            <div class="t-company">TOTVS</div>
+          </div>
+          <div class="t-tags">
+            <span class="t-tag gold">ERP Tech</span>
+            <span class="t-tag">Platform</span>
+          </div>
+          <div class="t-section-label">Core Methodologies</div>
+          <ul class="t-list">
+            <li>CAF (Cloud Adoption Framework)</li>
+            <li>JTBD (Jobs To Be Done)</li>
+            <li>Blue Ocean Strategy</li>
+            <li>Psychometric Profiling: FFM</li>
+          </ul>
+          <div class="t-divider"></div>
+          <div class="t-section-label">Core Applications</div>
+          <ul class="t-list">
+            <li>RM & Protheus (Proprietary ERP)</li>
+            <li>Cloud Infrastructure: AWS / Azure</li>
+            <li>BI Analytics: Power BI</li>
+            <li>CRM: Salesforce</li>
+          </ul>
+        </div>
+
+        <!-- TRAKTOR 2021 -->
+        <div class="timeline-col">
+          <div class="t-year-row">
+            <div class="t-year">2021</div>
+            <div class="t-company">Traktor</div>
+          </div>
+          <div class="t-tags">
+            <span class="t-tag gold">MarTech</span>
+            <span class="t-tag">Scale-up</span>
+          </div>
+          <div class="t-section-label">Core Methodologies</div>
+          <ul class="t-list">
+            <li>SLA Architecture</li>
+            <li>OKR & KPI Frameworks</li>
+            <li>Viable System Model (VSM)</li>
+            <li>Team Development Plan (IDP)</li>
+          </ul>
+          <div class="t-divider"></div>
+          <div class="t-section-label">Core Applications</div>
+          <ul class="t-list">
+            <li>Martech Ecosystem: HubSpot</li>
+            <li>Custom Predictive AI Models</li>
+            <li>Work OS: Asana Enterprise</li>
+            <li>Data Visualization: Tableau</li>
+          </ul>
+        </div>
+
+        <!-- SCALE AI 2024 -->
+        <div class="timeline-col">
+          <div class="t-year-row">
+            <div class="t-year">2024</div>
+            <div class="t-company">Scale AI</div>
+          </div>
+          <div class="t-tags">
+            <span class="t-tag gold">AI Tech</span>
+            <span class="t-tag">API</span>
+          </div>
+          <div class="t-section-label">Core Methodologies</div>
+          <ul class="t-list">
+            <li>RLHF Architecture</li>
+            <li>Unit Economics Optimization</li>
+            <li>Ontology & Taxonomy Design</li>
+            <li>CoT (Chain-of-Thought)</li>
+          </ul>
+          <div class="t-divider"></div>
+          <div class="t-section-label">Core Applications</div>
+          <ul class="t-list">
+            <li>Frontier LLMs: GPT / Gemini</li>
+            <li>Vector Database: Pinecone</li>
+            <li>Data Annotation: Scale Rapid</li>
+            <li>Model Evaluation: Scale Evals</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     II · PRINCIPLE
+══════════════════════════════════ -->
+<section class="chapter" id="principle">
+  <div class="wrap">
+    <div class="chapter-head rv">
+      <div class="ch-meta">
+        <span class="ch-cat">My view on team management</span>
+        <span class="ch-badge">2</span>
+      </div>
+      <h2 class="ch-h2">Principle</h2>
+      <p class="ch-sub">The orchestral model — how individual mastery and collective execution become one</p>
+    </div>
+
+    <div class="prose rv">
+      <p>A well-functioning team is not a collection of capable individuals working in parallel. It is an ensemble — a system where individual mastery and collective synchronization depend on each other. The output of the performance is contingent on three distinct but deeply integrated layers: the Conductor (Leadership), the Musician (Individual Mastery), and the Ensemble (System Synergy). Understanding this relationship is the foundation of how I build and lead teams.</p>
+    </div>
+
+    <div class="orch-section rv d1">
+      <div class="orch-header">
+        <div class="orch-title">The Orchestra Framework</div>
+        <div class="orch-sub">Three cognitive and operational layers that together define how a team reaches its highest output.</div>
+      </div>
+
+      <div class="orch-pillars">
+        <!-- Conductor -->
+        <div class="orch-pillar">
+          <div class="pillar-icon-wrap">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="9" cy="9" r="3" fill="currentColor" opacity="0.4"/>
+              <circle cx="9" cy="9" r="1" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="pillar-role">Leadership Layer</div>
+          <div class="pillar-title">Conductor's Brain</div>
+          <div class="pillar-p">The Conductor maintains a holistic diagnostic of the entire system. This requires mastering the strategic score — the definitive, unambiguous goal — while holding the complete architecture in mind: the macro-level vision and the specific capabilities of each individual. The role is to establish the framework for execution: setting the tempo, defining the dynamics, and providing real-time calibration. This environment of clarity is what allows the team to focus entirely on delivering.</div>
+        </div>
+
+        <!-- Musician -->
+        <div class="orch-pillar">
+          <div class="pillar-icon-wrap">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <rect x="2" y="4" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M6 9h6M9 7v4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="pillar-role">Individual Layer</div>
+          <div class="pillar-title">Musician's Brain</div>
+          <div class="pillar-p">Each professional is a master of their domain, holding full accountability for their instrument — their Zone of Genius. The Musician's mindset requires absolute clarity on the Conductor's intent. They must understand why their part matters to the overall symphony. This clarity is the prerequisite for trust, allowing the individual to contribute with informed autonomy. My role is to place each person in a position that leverages their strengths and assigns challenges that accelerate their growth.</div>
+        </div>
+
+        <!-- Ensemble -->
+        <div class="orch-pillar">
+          <div class="pillar-icon-wrap">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <circle cx="6" cy="9" r="3" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="12" cy="9" r="3" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M9 7v4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="pillar-role">System Layer</div>
+          <div class="pillar-title">Ensemble Purpose</div>
+          <div class="pillar-p">The Ensemble is the synthesis of the two layers above — the point where individual roles become a unified strategic output. Members operate in synchronization, bound by a shared understanding of the objective. Each Musician holds specialized skills and communicates through a unified framework. Because the direction is clear and the governance is stable, individuals can execute complex, independent roles without destructive friction, creating a system where the collective output exceeds the sum of its parts.</div>
+        </div>
+      </div>
+
+      <div class="orch-bottom">
+        <p class="orch-insight">
+          This orchestral synergy is my blueprint for organizational execution. It defines an environment where a team, fully aligned to a singular vision, converges <strong>clear intent</strong>, <strong>leveraged mastery</strong>, and <strong>systemic stability</strong> — producing one entity capable of delivering any outcome assigned to it.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     III · PSYCHOMETRICS
+══════════════════════════════════ -->
+<section class="chapter" id="psychometrics">
+  <div class="wrap">
+    <div class="chapter-head rv">
+      <div class="ch-meta">
+        <span class="ch-cat">Cognitive & Behavioural Diagnostic</span>
+        <span class="ch-badge">3</span>
+      </div>
+      <h2 class="ch-h2">Psychometrics</h2>
+      <p class="ch-sub">Two frameworks for understanding how people think, decide, and perform under load</p>
+    </div>
+
+    <div class="prose rv">
+      <p>Effective leadership involves diagnosing how people process information and why they behave the way they do under varying conditions. I use two complementary models for this: the Jungian Functions model, which maps the internal cognitive architecture, and the Five Factor Model (FFM), which diagnoses behavioural disposition. Neither is sufficient alone — one reveals how someone thinks, the other reveals how they are predisposed to act.</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="psych-tabs rv d1" id="psych-tabs">
+      <div class="psych-tab active" data-tab="jungian">Jungian / Cognitive Structure</div>
+      <div class="psych-tab" data-tab="ffm">FFM / Social Behaviour</div>
+    </div>
+
+    <!-- Jungian Panel -->
+    <div class="psych-panel active" id="tab-jungian">
+      <div class="jungian-wrap rv">
+        <div class="jungian-top">
+          <!-- Left: Core Axis -->
+          <div>
+            <div class="jungian-axis-label">Core Axis</div>
+            <div class="jungian-axis-title">Specialization Path</div>
+            <div class="jungian-axis-p">The Dominant function is the default lens on reality — the most trusted, reliable processing mode. The Auxiliary is the primary tool for acting on that reality, directly supporting the Dominant. These two functions form the core of an individual's conscious operation and represent their highest competence.</div>
+            <div class="jungian-micro-h">Micro-Application</div>
+            <div class="jungian-micro-p">Task assignment aligned to the Dominant/Auxiliary pairing produces consistently high-quality output with minimal cognitive friction. This is where an individual operates at peak.</div>
+          </div>
+
+          <!-- Center: SVG Diagram -->
+          <div class="jungian-canvas-wrap">
+            <svg width="220" height="200" viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Arc guide paths for text (invisible) -->
+              <path id="jung-spec" d="M2,160 A108,108,0,0,1,110,52" fill="none" stroke="none"/>
+              <path id="jung-int"  d="M110,52 A108,108,0,0,1,218,160" fill="none" stroke="none"/>
+              <!-- Quadrant fills — center (110,160) radius 100 -->
+              <path d="M10,160 A100,100,0,0,1,110,60 L110,160 Z" fill="#1a1a1a"/>
+              <path d="M110,60 A100,100,0,0,1,210,160 L110,160 Z" fill="#111111"/>
+              <!-- Vertical divider & semicircle border -->
+              <line x1="110" y1="60" x2="110" y2="160" stroke="#333333" stroke-width="0.8" stroke-dasharray="3,3"/>
+              <path d="M10,160 A100,100,0,0,1,210,160" stroke="#333333" stroke-width="1"/>
+              <!-- Arc text: Specialization -->
+              <text font-size="8" fill="#5c5c5c" font-family="Figtree,sans-serif" font-weight="700" letter-spacing="2">
+                <textPath href="#jung-spec" startOffset="4%">Specialization</textPath>
+              </text>
+              <!-- Arc text: Integration -->
+              <text font-size="8" fill="#5c5c5c" font-family="Figtree,sans-serif" font-weight="700" letter-spacing="2">
+                <textPath href="#jung-int" startOffset="4%">Integration</textPath>
+              </text>
+              <!-- Arrow at top-right -->
+              <polygon points="214,155 208,148 220,148" fill="#5c5c5c" opacity="0.5"/>
+              <!-- Quadrant labels -->
+              <text x="62"  y="115" text-anchor="middle" font-size="10" fill="#aaaaaa" font-family="Figtree,sans-serif" font-weight="600">Auxiliary</text>
+              <text x="162" y="110" text-anchor="middle" font-size="10" fill="#aaaaaa" font-family="Figtree,sans-serif" font-weight="600">Tertiary</text>
+              <text x="60"  y="153" text-anchor="middle" font-size="11" fill="#CEA54E" font-family="Figtree,sans-serif" font-weight="700">Dominant</text>
+              <text x="162" y="153" text-anchor="middle" font-size="11" fill="#888888" font-family="Figtree,sans-serif" font-weight="600">Inferior</text>
+              <!-- Function bar -->
+              <rect x="10" y="162" width="200" height="18" rx="3" fill="#111111" stroke="#262626" stroke-width="1"/>
+              <text x="20"  y="175" font-size="9" fill="#CEA54E" font-family="Figtree,sans-serif" font-weight="700">Te</text>
+              <text x="44"  y="175" font-size="9" fill="#666666" font-family="Figtree,sans-serif" font-weight="700">Ti</text>
+              <text x="68"  y="175" font-size="9" fill="#666666" font-family="Figtree,sans-serif" font-weight="700">Ne</text>
+              <text x="92"  y="175" font-size="9" fill="#666666" font-family="Figtree,sans-serif" font-weight="700">Ni</text>
+              <text x="116" y="175" font-size="9" fill="#666666" font-family="Figtree,sans-serif" font-weight="700">Se</text>
+              <text x="140" y="175" font-size="9" fill="#666666" font-family="Figtree,sans-serif" font-weight="700">Si</text>
+              <text x="164" y="175" font-size="9" fill="#666666" font-family="Figtree,sans-serif" font-weight="700">Fe</text>
+              <text x="188" y="175" font-size="9" fill="#666666" font-family="Figtree,sans-serif" font-weight="700">Fi</text>
+            </svg>
+          </div>
+
+          <!-- Right: Shadow Axis -->
+          <div>
+            <div class="jungian-axis-label">Shadow Axis</div>
+            <div class="jungian-axis-title">Integration Path</div>
+            <div class="jungian-axis-p">The Tertiary function is an aspirational source of new solutions — powerful when engaged intentionally, though often unrefined. The Inferior is the system's primary stress trigger and cognitive blind spot: the source of errors when an individual operates under significant load. It reveals the primary area for developmental support.</div>
+            <div class="jungian-micro-h">Micro-Application</div>
+            <div class="jungian-micro-p">Preemptive support during high-load phases — adaptive protocols that guide the Inferior function away from its default failure modes — produces measurable stability in team performance.</div>
+          </div>
+        </div>
+
+        <div class="jungian-bottom">
+          <div class="jungian-macro-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="8.5" stroke="#CEA54E" stroke-width="1.3"/>
+              <circle cx="10" cy="10" r="3" stroke="#CEA54E" stroke-width="1.3"/>
+              <path d="M10 1.5v3M10 15.5v3M1.5 10h3M15.5 10h3" stroke="#CEA54E" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="jungian-macro-h">Macro-Application</div>
+            <div class="jungian-macro-p">The Jungian diagnostic is the foundation for building a synergistic team. It allows strategic pairing of complementary cognitive architectures — for example, matching a visionary Ni-Dominant profile with a pragmatic execution-oriented Te-Dominant creates a pairing that covers both the strategic and operational dimensions without internal conflict. Knowing each individual's architecture allows me to design the team structure rather than let it emerge by accident.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FFM Panel -->
+    <div class="psych-panel" id="tab-ffm">
+      <div class="ffm-wrap rv">
+        <div class="ffm-top">
+          <!-- Left: Axis I -->
+          <div>
+            <div class="jungian-axis-label">Axis I</div>
+            <div class="jungian-axis-title">Execution & Resilience</div>
+            <div class="jungian-axis-p">This axis groups the traits governing performance consistency. Conscientiousness is the key predictor of diligence, self-discipline, and delivery reliability. Neuroticism is the diagnostic for resilience — measuring an individual's default response to pressure, volatility, and environmental stress. Together, they define an individual's operational consistency.</div>
+            <div class="jungian-micro-h">Micro-Application</div>
+            <div class="jungian-micro-p">High-C profiles are placed in assignments requiring structured execution. High-N profiles are supported with additional governance scaffolding during volatile project phases, where their stress response would otherwise introduce compounding errors.</div>
+          </div>
+
+          <!-- Center: Radar Chart -->
+          <div class="jungian-canvas-wrap">
+            <svg width="220" height="200" viewBox="-30 -10 280 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Pentagon grid rings — center (110,115) radius 85 -->
+              <!-- Vertices 100%: 110,30  191,89  160,184  60,184  29,89 -->
+              <!-- Vertices  75%: 110,51  171,95  148,167  72,167  49,95 -->
+              <!-- Vertices  50%: 110,73  150,102 135,149  85,149  70,102 -->
+              <!-- Vertices  25%: 110,94  130,108 122,132  98,132  90,108 -->
+              <g stroke="#888888" stroke-width="0.8" opacity="0.12">
+                <polygon points="110,30 191,89 160,184 60,184 29,89"/>
+                <polygon points="110,51 171,95 148,167 72,167 49,95"/>
+                <polygon points="110,73 150,102 135,149 85,149 70,102"/>
+                <polygon points="110,94 130,108 122,132 98,132 90,108"/>
+              </g>
+              <!-- Axes from center to each vertex -->
+              <g stroke="#333333" stroke-width="0.8">
+                <line x1="110" y1="115" x2="110" y2="30"/>
+                <line x1="110" y1="115" x2="191" y2="89"/>
+                <line x1="110" y1="115" x2="160" y2="184"/>
+                <line x1="110" y1="115" x2="60"  y2="184"/>
+                <line x1="110" y1="115" x2="29"  y2="89"/>
+              </g>
+              <!-- Data polygon (~90% fill) -->
+              <polygon points="110,39 183,91 155,177 65,177 37,91" fill="rgba(206,165,78,0.10)" stroke="#CEA54E" stroke-width="1.5"/>
+              <!-- Scale numbers -->
+              <text x="114" y="55"  font-size="7" fill="#5c5c5c" font-family="Figtree,sans-serif">75</text>
+              <text x="114" y="78"  font-size="7" fill="#5c5c5c" font-family="Figtree,sans-serif">50</text>
+              <text x="114" y="100" font-size="7" fill="#5c5c5c" font-family="Figtree,sans-serif">25</text>
+              <!-- Axis labels -->
+              <text x="110" y="16"  text-anchor="middle" font-size="9" fill="#aaaaaa" font-family="Figtree,sans-serif" font-weight="700">Openness</text>
+              <text x="196" y="87"  text-anchor="start"  font-size="9" fill="#aaaaaa" font-family="Figtree,sans-serif" font-weight="700">Agreeableness</text>
+              <text x="165" y="200" text-anchor="start"  font-size="9" fill="#aaaaaa" font-family="Figtree,sans-serif" font-weight="700">Extraversion</text>
+              <text x="55"  y="200" text-anchor="end"    font-size="9" fill="#aaaaaa" font-family="Figtree,sans-serif" font-weight="700">Neuroticism</text>
+              <text x="24"  y="87"  text-anchor="end"    font-size="9" fill="#aaaaaa" font-family="Figtree,sans-serif" font-weight="700">Conscientiousness</text>
+            </svg>
+          </div>
+
+          <!-- Right: Axis II -->
+          <div>
+            <div class="jungian-axis-label">Axis II</div>
+            <div class="jungian-axis-title">Innovation & Interaction</div>
+            <div class="jungian-axis-p">This axis maps the traits related to how an individual relates to new ideas and to other people. Openness is the diagnostic for innovation — revealing an orientation toward discovery versus a preference for established processes. Agreeableness and Extraversion map the individual's default approach to collaboration and social energy.</div>
+            <div class="jungian-micro-h">Micro-Application</div>
+            <div class="jungian-micro-p">High-O profiles are placed in discovery and ideation initiatives. Agreeableness and Extraversion data is used to calibrate communication cadence and collaboration structure — ensuring that introverted high-performers are not structurally disadvantaged in team settings.</div>
+          </div>
+        </div>
+
+        <div class="ffm-bottom">
+          <div class="jungian-macro-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="8.5" stroke="#CEA54E" stroke-width="1.3"/>
+              <circle cx="10" cy="10" r="3" stroke="#CEA54E" stroke-width="1.3"/>
+              <path d="M10 1.5v3M10 15.5v3M1.5 10h3M15.5 10h3" stroke="#CEA54E" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="jungian-macro-h">Macro-Application</div>
+            <div class="jungian-macro-p">The FFM diagnostic informs team synergy at the structural level. It allows pairing of complementary behavioural dispositions — for example, matching a high-O ideator with a high-C executor creates a productive pairing that generates ideas and delivers them to completion. Agreeableness and Extraversion data informs how the team communicates, preventing the failure modes that emerge when collaboration structure is designed without awareness of individual disposition.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     IV · PROTOCOLS
+══════════════════════════════════ -->
+<section class="chapter" id="protocols">
+  <div class="wrap">
+    <div class="chapter-head rv">
+      <div class="ch-meta">
+        <span class="ch-cat">Field-Tested Frameworks</span>
+        <span class="ch-badge">4</span>
+      </div>
+      <h2 class="ch-h2">Protocols</h2>
+      <p class="ch-sub">Three structured frameworks applied to ideation, stakeholder governance, and individual development</p>
+    </div>
+
+    <div class="prose rv">
+      <p>Frameworks without implementation are theory. The following three protocols have been applied directly within the operational contexts described in this document. Each addresses a specific failure mode that emerges repeatedly across teams: the tendency for group dynamics to suppress individual insight, the absence of a coherent stakeholder engagement model, and the disconnection between individual ambition and organizational need.</p>
+    </div>
+
+    <div class="protocol-grid">
+
+      <!-- BRAINWRITING -->
+      <div class="protocol-card rv d1">
+        <div class="protocol-head">
+          <div>
+            <div class="protocol-type">Solutions Management</div>
+            <div class="protocol-name">6–3–5 Brainwriting</div>
+            <div class="protocol-p">A structured ideation framework that employs a parallel contribution system to separate the act of generating ideas from their immediate discussion. By securing individual insight before group discussion begins, the process captures the cognitive output of every participant and eliminates the dominance dynamics that cause most conventional brainstorming sessions to converge prematurely on the first credible idea.</div>
+            <div class="protocol-sub-h">Application</div>
+            <div class="protocol-sub-p">The numerals in the 6–3–5 protocol — 6 participants, 3 ideas, 5 minutes per round — represent a common configuration. The core mechanism is adaptability: the structure scales to any team size. A session can deploy with a homogenous group to refine solutions within a single function, or with a cross-functional team for a comprehensive review. The method's power lies in its silent, rotational contribution model.</div>
+            <div class="protocol-sub-h">Outcome</div>
+            <div class="protocol-sub-p">The primary result is efficient conversion of ambiguity into actionable clarity. The protocol functions as a diagnostic tool, moving a team from a broad problem statement through a documented identification phase, and concluding with a shared alignment on specific action.</div>
+          </div>
+
+          <div>
+            <div class="vis-label">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#CEA54E" stroke-width="1.2"/><circle cx="7" cy="7" r="2" fill="#CEA54E" opacity="0.5"/></svg>
+              Visualization
+            </div>
+            <!-- Phase I header -->
+            <div style="background:var(--g2);border:1px solid var(--g3);border-radius:var(--r-sm);padding:12px;margin-bottom:8px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <span style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--g6);">Phase I &nbsp; Explore</span>
+                <div style="display:flex;gap:6px;">
+                  <span style="font-size:10px;font-weight:700;background:var(--g3);padding:3px 8px;border-radius:4px;color:var(--g7);">Team 4</span>
+                  <span style="font-size:10px;font-weight:700;background:var(--g3);padding:3px 8px;border-radius:4px;color:var(--g7);">Ideas 3</span>
+                  <span style="font-size:10px;font-weight:700;background:rgba(206,165,78,0.1);padding:3px 8px;border-radius:4px;color:var(--gold);">5:00</span>
+                </div>
+              </div>
+              <div style="font-size:11px;color:var(--g6);margin-bottom:10px;">Premise: Our mobile conversion rate has been declining for two quarters.</div>
+              <div class="bw-card-grid">
+                <div class="bw-card"><div class="bw-card-role">Product</div>What if we removed the login requirement from the checkout? Friction at conversion is the likely cause. @All</div>
+                <div class="bw-card"><div class="bw-card-role">Front Dev</div>Legacy components are adding 2.4s load time. A modular redesign could target the bottleneck directly. @UI</div>
+                <div class="bw-card"><div class="bw-card-role">UI Design</div>A new design system approach that consolidates the heavy assets could solve both speed and coherence. @All</div>
+                <div class="bw-card"><div class="bw-card-role">Marketing</div>A/B test on the hero CTA may be faster than a full redesign. I have baseline data ready. @Front</div>
+              </div>
+            </div>
+            <!-- Phase II + III -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <div style="background:var(--g2);border:1px solid var(--g3);border-radius:var(--r-sm);padding:12px;">
+                <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--g6);margin-bottom:6px;">Phase II &nbsp; Identify</div>
+                <div style="font-size:11px;color:var(--g7);line-height:1.5;">Outdated components creating load-time penalties were identified as the primary cause of declining conversion.</div>
+              </div>
+              <div style="background:var(--g2);border:1px solid var(--g3);border-radius:var(--r-sm);padding:12px;">
+                <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--g6);margin-bottom:6px;">Phase III &nbsp; Act</div>
+                <div style="font-size:11px;color:var(--g7);line-height:1.5;">The team aligned on a modular component audit as the immediate next step, with A/B testing running in parallel.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MENDELOW -->
+      <div class="protocol-card rv d2">
+        <div class="protocol-head">
+          <div>
+            <div class="protocol-type">Stakeholder Management</div>
+            <div class="protocol-name">Mendelow Matrix</div>
+            <div class="protocol-p">The Mendelow Influence Matrix diagnoses organizational dynamics by plotting stakeholders onto a coordinate system defined by Authority (resource control) and Strategic Interest (operational impact). This structural definition isolates the specific weight each actor carries regarding decisions, distinguishing those holding veto power from those driving daily execution.</div>
+            <div class="protocol-sub-h">Application</div>
+            <div class="protocol-sub-p">Execution relies on allocating specific engagement protocols based on each stakeholder's coordinate position. High-authority figures require active Co-Creation or risk-mitigating Assurance protocols to secure approvals. High-interest advocates are mobilized via Leverage protocols to facilitate ground-level adoption. Resources are distributed to ensure information fidelity targets the distinct objectives of ratification, ownership, or visibility.</div>
+            <div class="protocol-sub-h">Outcome</div>
+            <div class="protocol-sub-p">Categorizing stakeholder needs in advance prevents late-stage interference and uncoordinated feedback loops — the two most common causes of scope drift in product development cycles. It grants the team authorized autonomy to neutralize friction points before they accumulate.</div>
+          </div>
+
+          <div>
+            <div class="vis-label">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#CEA54E" stroke-width="1.2"/><circle cx="7" cy="7" r="2" fill="#CEA54E" opacity="0.5"/></svg>
+              Visualization
+            </div>
+            <div class="mend-matrix">
+              <!-- Y axis label -->
+              <div class="mend-axis-v" style="grid-row:1/3;grid-column:1;">Authority: Resource Control ↑</div>
+              <!-- Top-left: Utility Approver -->
+              <div class="mend-cell" style="grid-row:1;grid-column:2;">
+                <div class="mend-tag">High Authority · Low Interest</div>
+                <div class="mend-cell-title">Utility Approver</div>
+                <div class="mend-item">Protocol: Assurance</div>
+                <div class="mend-item">Emphasize risk mitigation to secure ratification</div>
+              </div>
+              <!-- Top-right: Strategic Partner -->
+              <div class="mend-cell" style="grid-row:1;grid-column:3;background:var(--gold-low);border-color:rgba(206,165,78,0.2);">
+                <div class="mend-tag gold">High Authority · High Interest</div>
+                <div class="mend-cell-title" style="color:var(--white);">Strategic Partner</div>
+                <div class="mend-item">Protocol: Co-Creation</div>
+                <div class="mend-item">Share ownership to prevent downstream vetoes</div>
+              </div>
+              <!-- Bottom-left: Observer -->
+              <div class="mend-cell" style="grid-row:2;grid-column:2;">
+                <div class="mend-tag">Low Authority · Low Interest</div>
+                <div class="mend-cell-title">Observer</div>
+                <div class="mend-item">Protocol: Monitor</div>
+                <div class="mend-item">Maintain standardized visibility to preserve focus</div>
+              </div>
+              <!-- Bottom-right: Advocate -->
+              <div class="mend-cell" style="grid-row:2;grid-column:3;">
+                <div class="mend-tag">Low Authority · High Interest</div>
+                <div class="mend-cell-title">Advocate</div>
+                <div class="mend-item">Protocol: Leverage</div>
+                <div class="mend-item">Empower with context to drive grassroots adoption</div>
+              </div>
+              <!-- X axis -->
+              <div class="mend-axis-h" style="grid-row:3;grid-column:2/4;">Interest: Operational Impact →</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOFFMAN -->
+      <div class="protocol-card rv d3">
+        <div class="protocol-head">
+          <div>
+            <div class="protocol-type">Team Development</div>
+            <div class="protocol-name">Hoffman Framework</div>
+            <div class="protocol-p">The Hoffman framework operates on the premise that professional performance is maximized when an individual's personal ambition is accurately aligned with the organization's needs. It structures tenure around finite missions, establishing a transparent compact between the business and the individual. By aligning a career vector with the strategic roadmap, the protocol converts potential friction into a synchronized trajectory of mutual impact.</div>
+            <div class="protocol-sub-h">Application</div>
+            <div class="protocol-sub-p">Implementation centers on defining a specific mission that structures the individual development plan. Competencies are audited via diagnostic mapping and directly anchored to the business roadmap through a critical MVP. This configuration mandates deliberate exposure to complex variables, ensuring that the successful delivery of the business objective also functions as the primary mechanism for the individual's professional advancement.</div>
+            <div class="protocol-sub-h">Outcome</div>
+            <div class="protocol-sub-p">This dynamic generates a self-reinforcing system. Executing the mission resolves strategic bottlenecks while granting the individual verifiable market value. It shifts the metric of success from time served to the quantity of transformational cycles completed — a fundamentally different compact than traditional career development models.</div>
+          </div>
+
+          <div>
+            <div class="vis-label">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#CEA54E" stroke-width="1.2"/><circle cx="7" cy="7" r="2" fill="#CEA54E" opacity="0.5"/></svg>
+              Visualization
+            </div>
+            <div class="hoff-diagram">
+              <svg viewBox="-5 0 310 310" width="100%" style="max-width:280px;margin:0 auto;display:block;" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Arc guide paths for text (invisible) -->
+                <!-- Outer circle: cx=150 cy=145 r=130 -->
+                <!-- Left (9 o'clock): (20, 145)  Top (12 o'clock): (150, 15)  Right (3 o'clock): (280, 145) -->
+                <path id="hoff-dm2" d="M20,145 A130,130,0,0,1,150,15"  fill="none" stroke="none"/>
+                <path id="hoff-on2" d="M150,15  A130,130,0,0,1,280,145" fill="none" stroke="none"/>
+                <!-- Outer circle -->
+                <circle cx="150" cy="145" r="130" fill="#1a1a1a" stroke="#262626" stroke-width="1"/>
+                <!-- Arc text labels -->
+                <text font-size="9.5" fill="#5c5c5c" font-family="Figtree,sans-serif" font-weight="700" letter-spacing="1.5">
+                  <textPath href="#hoff-dm2" startOffset="8%">Diagnostic Mapping</textPath>
+                </text>
+                <text font-size="9.5" fill="#5c5c5c" font-family="Figtree,sans-serif" font-weight="700" letter-spacing="1.5">
+                  <textPath href="#hoff-on2" startOffset="8%">Operational Necessity</textPath>
+                </text>
+                <!-- Arrow at top-right arc -->
+                <polygon points="280,138 274,130 286,130" fill="#666666" opacity="0.7"/>
+                <!-- Inner golden circle -->
+                <circle cx="150" cy="145" r="72" fill="#111111" stroke="rgba(206,165,78,0.35)" stroke-width="1.5"/>
+                <!-- Center text -->
+                <text x="150" y="131" text-anchor="middle" font-size="11" font-weight="800" fill="#CEA54E" font-family="Figtree,sans-serif" letter-spacing="2">STRATEGIC</text>
+                <text x="150" y="148" text-anchor="middle" font-size="11" font-weight="800" fill="#CEA54E" font-family="Figtree,sans-serif" letter-spacing="2">VECTOR</text>
+                <text x="150" y="163" text-anchor="middle" font-size="8" fill="#666666" font-family="Figtree,sans-serif">Growth driven by</text>
+                <text x="150" y="174" text-anchor="middle" font-size="8" fill="#666666" font-family="Figtree,sans-serif">delivering the solution.</text>
+                <!-- Left: Cognitive Architecture -->
+                <text x="70" y="133" text-anchor="end" font-size="10" fill="#aaaaaa" font-family="Figtree,sans-serif" font-weight="700">◁ Cognitive</text>
+                <text x="70" y="147" text-anchor="end" font-size="9"  fill="#5c5c5c" font-family="Figtree,sans-serif">Architecture</text>
+                <!-- Left: Technical Competencies -->
+                <text x="70" y="170" text-anchor="end" font-size="10" fill="#aaaaaa" font-family="Figtree,sans-serif" font-weight="700">▷ Technical</text>
+                <text x="70" y="184" text-anchor="end" font-size="9"  fill="#5c5c5c" font-family="Figtree,sans-serif">Competencies</text>
+                <!-- Right: Critical MVP -->
+                <text x="230" y="133" text-anchor="start" font-size="10" fill="#aaaaaa" font-family="Figtree,sans-serif" font-weight="700">▷ Critical</text>
+                <text x="230" y="147" text-anchor="start" font-size="9"  fill="#5c5c5c" font-family="Figtree,sans-serif">MVP</text>
+                <!-- Right: Business Roadmap -->
+                <text x="230" y="170" text-anchor="start" font-size="10" fill="#aaaaaa" font-family="Figtree,sans-serif" font-weight="700">◁ Business</text>
+                <text x="230" y="184" text-anchor="start" font-size="9"  fill="#5c5c5c" font-family="Figtree,sans-serif">Roadmap</text>
+                <!-- SHARED MISSION -->
+                <polygon points="122,292 114,282 114,302" fill="rgba(206,165,78,0.5)"/>
+                <polygon points="178,292 186,282 186,302" fill="rgba(206,165,78,0.5)"/>
+                <text x="150" y="300" text-anchor="middle" font-size="8.5" fill="#5c5c5c" font-family="Figtree,sans-serif" font-weight="700" letter-spacing="4">SHARED MISSION</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     V · BENCHMARK (KPI STRIP)
+══════════════════════════════════ -->
+<section class="chapter" id="benchmark">
+  <div class="wrap">
+    <div class="chapter-head rv">
+      <div class="ch-meta">
+        <span class="ch-cat">Composite Outcomes</span>
+        <span class="ch-badge">5</span>
+      </div>
+      <h2 class="ch-h2">Benchmark</h2>
+      <p class="ch-sub">Measured results from the application of this leadership model across four operational environments</p>
+    </div>
+
+    <div class="prose rv">
+      <p>Leadership models are validated by outcomes. The following results reflect the application of the frameworks and protocols described in this document across real operational environments. Metrics are presented as composites, in accordance with NDA obligations, and are engineered to accurately reflect the scale and relative impact of each result.</p>
+    </div>
+
+    <div class="kpi-strip rv d1">
+      <div class="kpi-block">
+        <div class="kpi-big">+33pts</div>
+        <div class="kpi-lbl">OKR Execution Rate</div>
+        <div class="kpi-desc">Quarterly execution rate lifted from 54% to 87% across all departments over 18 months at Traktor.</div>
+        <div class="kpi-baseline">Industry baseline: ~65% (Standard Agile)</div>
+      </div>
+      <div class="kpi-block">
+        <div class="kpi-big">−44%</div>
+        <div class="kpi-lbl">Director-Level Escalations</div>
+        <div class="kpi-desc">Governance model at Scale AI reduced escalation volume within two quarters of implementation.</div>
+        <div class="kpi-baseline">Industry baseline: Neutral / No structural target</div>
+      </div>
+      <div class="kpi-block">
+        <div class="kpi-big">−60%</div>
+        <div class="kpi-lbl">Cross-Team Misalignment</div>
+        <div class="kpi-desc">Unified discovery model at TOTVS reduced engineering-finance-CS misalignment incidents across 3 verticals.</div>
+        <div class="kpi-baseline">Industry baseline: Neutral / No benchmark</div>
+      </div>
+    </div>
+
+    <!-- Benchmark cards per environment -->
+    <div class="bench-grid rv d2" style="margin-top:32px;">
+      <div class="bench-card">
+        <div class="bench-company">Scale AI — RLHF Infrastructure</div>
+        <div class="bench-metric-row">
+          <div class="bench-metric-val">+22%</div>
+          <div class="bench-metric-lbl">Post-training Reasoning Score</div>
+        </div>
+        <div class="bench-baseline">Scale Nucleus RLHF consolidation pipeline</div>
+        <div class="bench-impact">3 Contract Expansions Secured</div>
+        <div class="bench-p">Architecting the RLHF consolidation pipeline produced measurable improvement in frontier LLM benchmark reasoning scores, directly translating to three renewed and expanded client contracts with frontier lab partners.</div>
+        <div class="bar-anim"><div class="bar-anim-fill" data-width="82"></div></div>
+      </div>
+      <div class="bench-card">
+        <div class="bench-company">Traktor — Creative Intelligence Unit</div>
+        <div class="bench-metric-row">
+          <div class="bench-metric-val">−71%</div>
+          <div class="bench-metric-lbl">Gap Resolution Time</div>
+        </div>
+        <div class="bench-baseline">Industry baseline: ~20% improvement (Standard Agile)</div>
+        <div class="bench-impact">3.5× Market Speed</div>
+        <div class="bench-p">SLA Architecture established binary resolution protocols for the creative workflow, minimizing operational friction and maintaining consistent delivery velocity throughout a 3-year execution window.</div>
+        <div class="bar-anim"><div class="bar-anim-fill" data-width="71"></div></div>
+      </div>
+      <div class="bench-card">
+        <div class="bench-company">Traktor — Media Performance</div>
+        <div class="bench-metric-row">
+          <div class="bench-metric-val">+26%</div>
+          <div class="bench-metric-lbl">Core KPI Uplift</div>
+        </div>
+        <div class="bench-baseline">Industry baseline: 2–5% (Standard A/B Testing)</div>
+        <div class="bench-impact">5.2× Optimization Rate</div>
+        <div class="bench-p">The Prism taxonomy system anchored creative decisions to measurable data attributes, directly stabilizing performance outcomes and ensuring output consistently aligned with high-performance targets across all managed accounts.</div>
+        <div class="bar-anim"><div class="bar-anim-fill" data-width="63"></div></div>
+      </div>
+      <div class="bench-card">
+        <div class="bench-company">TOTVS — T-Cloud Migration</div>
+        <div class="bench-metric-row">
+          <div class="bench-metric-val">−25%</div>
+          <div class="bench-metric-lbl">Total Cost of Ownership</div>
+        </div>
+        <div class="bench-baseline">Industry baseline: Neutral to +10% (Cloud Migration Inflation)</div>
+        <div class="bench-impact">Positive ROI Event</div>
+        <div class="bench-p">A pre-migration audit of the legacy architecture identified financial levers early in the process. Strategic sequencing enabled a controlled transition to a predictable OpEx cost structure, securing fiscal control and sustainable efficiency across 3 enterprise verticals.</div>
+        <div class="bar-anim"><div class="bar-anim-fill" data-width="55"></div></div>
+      </div>
+    </div>
+
+    <!-- Qualitative Feedback -->
+    <div style="margin-top:48px;">
+      <div class="toc-label rv">Qualitative Feedback</div>
+      <div class="feedback-wrap rv d1">
+        <div class="feedback-card">
+          <div class="feed-avatar">MG</div>
+          <div>
+            <div class="feed-name">Maria Gomes</div>
+            <div class="feed-meta">GPM · TOTVS &nbsp;·&nbsp; Leader</div>
+            <div class="feed-quote">"What stands out about Felipe is his ability to see the chaotic big picture and break it down into a clear plan. He bridged the gap between our technical teams and the board without friction. I could always count on him to give me the raw truth about our risks, not just what I wanted to hear."</div>
+            <div class="feed-tags">
+              <span class="feed-tag">Strategic Clarity</span>
+              <span class="feed-tag">Board-Level Communication</span>
+              <span class="feed-tag">Risk Transparency</span>
+            </div>
+          </div>
+        </div>
+        <div class="feedback-card">
+          <div class="feed-avatar">RR</div>
+          <div>
+            <div class="feed-name">Rafael Reis</div>
+            <div class="feed-meta">Front-End Developer · Traktor &nbsp;·&nbsp; Direct Report</div>
+            <div class="feed-quote">"I've never had a manager invest so much in my actual career growth. He actively looked for opportunities to match the project's needs with the skills I wanted to develop. The environment he built was demanding but completely fair — I always knew exactly where I stood and what was expected of me."</div>
+            <div class="feed-tags">
+              <span class="feed-tag">Career Development</span>
+              <span class="feed-tag">Operational Clarity</span>
+              <span class="feed-tag">High Standards</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="wrap">
+    <div class="footer-body">
+      <div>
+        <div class="footer-logo">LYNDEN</div>
+        <div class="footer-tagline">Professional Portfolio</div>
+        <div class="footer-email"><a href="mailto:felipelynden@gmail.com">felipelynden@gmail.com</a></div>
+      </div>
+      <div>
+        <div class="ft-col-h">Shortcuts</div>
+        <ul class="ft-links">
+          <li><a href="https://felipelynden.com">Home</a></li>
+          <li><a href="https://leadership.felipelynden.com">Leadership Model</a></li>
+          <li><a href="https://scale.felipelynden.com">Scale AI Case</a></li>
+          <li><a href="https://traktor.felipelynden.com">Traktor Case</a></li>
+          <li><a href="https://totvs.felipelynden.com">TOTVS Case</a></li>
+        </ul>
+      </div>
+      <div>
+        <ul class="ft-links ft-links--top">
+          <li><a href="https://felipelynden.com/blog">Blog</a></li>
+          <li><a href="https://felipelynden.com/contact">Contact</a></li>
+          <li><a href="https://www.linkedin.com/in/felipelynden/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://cal.com/felipelynden/30min?user=felipelynden" target="_blank" rel="noopener">Book a call</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span>Website by Felipe Lynden</span>
+      <span id="js-top" class="back-top-btn" style="cursor:pointer;">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M6 9V3M3 6l3-3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back to top
+      </span>
+      <span>Germany · 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Scroll progress bar ── */
+var _bar = document.getElementById('progress-bar');
+function _updateBar() {
+  if (!_bar) return;
+  var h = document.documentElement;
+  var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  _bar.style.width = pct + '%';
+}
+window.addEventListener('scroll', _updateBar, { passive: true });
+
+/* ── Reveal on scroll (safe pattern) ── */
+var _rvEls = document.querySelectorAll('.rv');
+_rvEls.forEach(function(el) { el.classList.add('js-hidden'); });
+
+if (window.IntersectionObserver) {
+  var _revObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.remove('js-hidden');
+        e.target.classList.add('on');
+        _revObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07, rootMargin: '0px 0px -36px 0px' });
+  _rvEls.forEach(function(el) { _revObs.observe(el); });
+} else {
+  /* Fallback: show everything if no IntersectionObserver */
+  _rvEls.forEach(function(el) { el.classList.remove('js-hidden'); el.classList.add('on'); });
+}
+
+/* ── Back to top ── */
+var _topBtn = document.getElementById('js-top');
+if (_topBtn) {
+  _topBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+</script>
+</body>
+</html>
