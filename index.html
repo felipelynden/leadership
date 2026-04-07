@@ -1461,7 +1461,7 @@ footer { background: #080808; border-top: 1px solid var(--g3); margin-top: 80px;
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── Scroll progress bar ── */
 var _bar = document.getElementById('progress-bar');
 function _updateBar() {
@@ -1492,11 +1492,94 @@ if (window.IntersectionObserver) {
   _rvEls.forEach(function(el) { el.classList.remove('js-hidden'); el.classList.add('on'); });
 }
 
+/* ── Psych tabs ── */
+var _tabs = document.querySelectorAll('.psych-tab');
+var _panels = document.querySelectorAll('.psych-panel');
+_tabs.forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    var target = tab.getAttribute('data-tab');
+    _tabs.forEach(function(t) { t.classList.remove('active'); });
+    _panels.forEach(function(p) { p.classList.remove('active'); });
+    tab.classList.add('active');
+    var panel = document.getElementById('tab-' + target);
+    if (panel) panel.classList.add('active');
+  });
+});
+
+/* ── Animated bars ── */
+function _animateBars(entries, observer) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      var fills = e.target.querySelectorAll('.bar-anim-fill');
+      fills.forEach(function(fill) {
+        var w = fill.getAttribute('data-width') || '0';
+        setTimeout(function() { fill.style.width = w + '%'; }, 120);
+      });
+      observer.unobserve(e.target);
+    }
+  });
+}
+if (window.IntersectionObserver) {
+  var _barObs = new IntersectionObserver(_animateBars, { threshold: 0.2 });
+  document.querySelectorAll('.bench-card').forEach(function(card) { _barObs.observe(card); });
+}
+
+/* ── Hero canvas particles ── */
+(function() {
+  var canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W, H, pts = [];
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  for (var i = 0; i < 55; i++) {
+    pts.push({
+      x: Math.random() * 1200,
+      y: Math.random() * 700,
+      vx: (Math.random() - 0.5) * 0.22,
+      vy: (Math.random() - 0.5) * 0.22,
+      r: Math.random() * 1.2 + 0.3
+    });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    var sx = W / 1200, sy = H / 700;
+    for (var i = 0; i < pts.length; i++) {
+      var p = pts[i];
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = 1200; if (p.x > 1200) p.x = 0;
+      if (p.y < 0) p.y = 700;  if (p.y > 700)  p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x * sx, p.y * sy, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(206,165,78,0.7)';
+      ctx.fill();
+      for (var j = i + 1; j < pts.length; j++) {
+        var q = pts[j];
+        var dx = (p.x - q.x) * sx, dy = (p.y - q.y) * sy;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 110) {
+          ctx.beginPath();
+          ctx.moveTo(p.x * sx, p.y * sy);
+          ctx.lineTo(q.x * sx, q.y * sy);
+          ctx.strokeStyle = 'rgba(206,165,78,' + (0.09 * (1 - dist / 110)) + ')';
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
 /* ── Back to top ── */
 var _topBtn = document.getElementById('js-top');
 if (_topBtn) {
-  _topBtn.addEventListener('click', function(e) {
-    e.preventDefault();
+  _topBtn.addEventListener('click', function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }
